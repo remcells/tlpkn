@@ -4,73 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.ccs" />
-    <title>TLPKN</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="gameName hidden">
-      <div>
-        <img src="" alt="gameTitle" />
+    <div class="container">
+      <div class="player-one">
+        <h2>Player One</h2>
+        <p>HP: <span id="player-1-hp">100</span></p>
+        <p>Stamina: <span id="player-1-stamina">50</span></p>
+        <p>Attack Power: <span id="player-1-power">5</span></p>
       </div>
-      <div>
-        <button>Instructions</button>
-        <button>Start Game</button>
-      </div>
-      <div class="hidden">
-        <button>Go back</button>
+      <div class="player-two">
+        <h2>Player Two</h2>
+        <p>HP: <span id="player-2-hp">100</span></p>
+        <p>Stamina: <span id="player-2-stamina">50</span></p>
+        <p>Attack Power: <span id="player-2-power">5</span></p>
       </div>
     </div>
-
-    <div class="gameStart hidden playerOne">
-      <div><p>heart Icon</p></div>
-      <div>
-        <div><p>health bar</p></div>
-        <div><p>health left</p></div>
-      </div>
-      <div class="stamina">
-        <img src="" alt="" />
-        <p>lightning</p>
-        <p>stamina indicator percentage</p>
-        <p>power up gain indicator</p>
-      </div>
-      <div class="powerUp">
-        <button>power up button</button>
-      </div>
-
-      <div class="chickenAttack">
-        <img src="" alt="" />
-      </div>
-      <div class="attck-btn">ATTACK</div>
+    <div class="actions-container">
+      <h2>+ <span id="power-up">0</span></h2>
+      <button>Power-Up</button><br />
+      <button>Attack</button>
     </div>
-
-    <div class="gameStart hidden playerTwo">
-      <div><p>heart Icon</p></div>
-      <div>
-        <div><p>health bar</p></div>
-        <div><p>health left</p></div>
-      </div>
-      <div class="stamina">
-        <img src="" alt="" />
-        <p>lightning</p>
-        <p>stamina indicator percentage</p>
-        <p>power up gain indicator</p>
-      </div>
-      <div class="powerUp">
-        <button>power up button</button>
-      </div>
-
-      <div class="chickenAttack">
-        <img src="" alt="" />
-      </div>
-      <div class="attck-btn">ATTACK</div>
-    </div>
-
-    <div class="gameEnd hidden">
-      <h1>WINNER</h1>
-      <img src="" alt="" />friedchckn
-      <button>PLAY AGAIN</button>
-    </div>
-
-    <script src="app.js"></script>
   </body>
 </html>
