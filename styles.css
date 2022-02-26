@@ -25,7 +25,7 @@
   padding: 1px;
 }
 
-.hpIndicator {
+#hpIndicator-one ,#hpIndicator-two{
   display: block;
   height: 1rem;
   width: 100%;

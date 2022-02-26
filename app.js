@@ -2,7 +2,6 @@ const hp = [100, 100];
 const attackPower = [5, 5];
 const stamina = [50, 50];
 let activePlayer = 0;
-let hpColor = document.getElementsByClassName('hpIndicator');
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
@@ -41,33 +40,33 @@ drawCard.addEventListener('click', function () {
 });
 
 // for change color hp function algo waiting for remcel
-// var i = 0;
-// function move() {
-//   if (i == 0) {
-//     i = 1;
-//     var elem = document.getElementById("myBar");
-//     var width = 100;
-//     var id = setInterval(frame, 30);
-//     function frame() {
-//       if (width <= 0)
-//       {
-//         clearInterval(id);
-//         i = 0;
-//       }
-//       else
-//       {
-//         width--;
-//         if(width <60 && width >30)
-//         {
-//         elem.style.backgroundColor = "yellow";
-//         }
-//         else if (width <30)
-//         {
-//         elem.style.backgroundColor = "red";
-//         }
-//         elem.style.width = width + "%";
-//         elem.innerHTML = width  + "%";
-//       }
-//     }
-//   }
-// }
+var i = 0;
+function hpDeduction() {
+  if (i == 0) {
+    i = 1;
+    var elem = document.getElementById("hpIndicator-one");
+    var width = 100;
+    var id = setInterval(frame, 60);
+    function frame() {
+      if (width <= 0) 
+      {
+        clearInterval(id);
+        i = 0;
+      } 
+      else 
+      {
+        width--;
+        if(width >30 && width <60)
+        {
+        elem.style.backgroundColor = "yellow";
+        }
+        else if (width <30)
+        {
+        elem.style.backgroundColor = "red";
+        }
+        elem.style.width = width + "%";
+        elem.innerHTML = width  + "%";
+      }
+    }
+  }
+}
