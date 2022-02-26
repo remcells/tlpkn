@@ -37,3 +37,18 @@ drawCard.addEventListener('click', function () {
     switchPlayer();
   }
 });
+const currentHPStatus = document.getElementById('player-0-hp-label');
+let player0HPValue = 100;
+let player1HPValue = 100;
+const player0HP = document.getElementById('player-0-current-hp');
+const playerAttack = document.getElementById('attack-btn');
+
+playerAttack.addEventListener('click', function () {
+  player0HPValue -= attackPower[activePlayer];
+  if (player0HPValue < 0) {
+    player0HPValue = 0;
+  }
+  let player0HPBarWidth = (player0HPValue / 100) * 300;
+  player0HP.style.width = player0HPBarWidth + 'px';
+  switchPlayer();
+});

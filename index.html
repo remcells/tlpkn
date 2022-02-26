@@ -11,13 +11,19 @@
     <div class="container">
       <div class="player-one">
         <h2>Player One</h2>
-        <p>HP: <span id="player-0-hp">100</span></p>
+        <p>HP: <span id="player-0-hp-label">100</span></p>
+        <div class="hp-border">
+          <div id="player-0-current-hp" class="current-hp"></div>
+        </div>
         <p>Stamina: <span id="player-0-stamina">50</span></p>
         <p>Attack Power: <span id="player-0-power">5</span></p>
       </div>
       <div class="player-two">
         <h2>Player Two</h2>
-        <p>HP: <span id="player-1-hp">100</span></p>
+        <p>HP: <span id="player-1-hp-label">100</span></p>
+        <div class="hp-border">
+          <div id="player-1-current-hp" class="current-hp"></div>
+        </div>
         <p>Stamina: <span id="player-1-stamina">50</span></p>
         <p>Attack Power: <span id="player-1-power">5</span></p>
       </div>
@@ -25,7 +31,7 @@
     <div class="actions-container">
       <h2><span id="power-up">-</span></h2>
       <button id="power-up-btn">Power-Up</button><br />
-      <button>Attack</button>
+      <button id="attack-btn">Attack</button>
     </div>
     <script src="app.js"></script>
   </body>

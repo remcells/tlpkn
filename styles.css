@@ -12,3 +12,16 @@
   display: flex;
   flex-flow: column;
 }
+
+.hp-border {
+  width: 300px;
+  height: 30px;
+  border-color: black;
+  border-style: solid;
+}
+
+.current-hp {
+  width: 300px;
+  height: 30px;
+  background-color: green;
+}
