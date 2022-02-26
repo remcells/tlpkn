@@ -58,7 +58,7 @@ function hpDeduction() {
         width--;
         if(width >30 && width <60)
         {
-        elem.style.backgroundColor = "yellow";
+        elem.style.backgroundColor = "orange";
         }
         else if (width <30)
         {
