@@ -12,3 +12,28 @@
   display: flex;
   flex-flow: column;
 }
+
+.hpBar {
+  border-radius: 10px;
+  background-color: #555;
+  border: 1px solid black;
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+  display: block;
+  margin: auto;
+  height: 1rem;
+  width: 15rem;
+  padding: 1px;
+}
+
+.hpIndicator {
+  display: block;
+  height: 1rem;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #04AA6D;
+  margin: 0;
+  border: 0;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
