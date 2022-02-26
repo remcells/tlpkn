@@ -11,12 +11,22 @@
     <div class="container">
       <div class="player-one">
         <h2>Player One</h2>
+
+        <div class="hpBar">
+          <span id="hpIndicator-one">100%</span>
+        </div>
+
         <p>HP: <span id="player-0-hp">100</span></p>
         <p>Stamina: <span id="player-0-stamina">50</span></p>
         <p>Attack Power: <span id="player-0-power">5</span></p>
       </div>
       <div class="player-two">
         <h2>Player Two</h2>
+
+        <div class="hpBar">
+          <span id="hpIndicator-two">100%</span>
+        </div>
+
         <p>HP: <span id="player-1-hp">100</span></p>
         <p>Stamina: <span id="player-1-stamina">50</span></p>
         <p>Attack Power: <span id="player-1-power">5</span></p>
@@ -25,7 +35,7 @@
     <div class="actions-container">
       <h2><span id="power-up">-</span></h2>
       <button id="power-up-btn">Power-Up</button><br />
-      <button>Attack</button>
+      <button id="attack-btn" onclick="hpDeduction()">Attack</button>
     </div>
     <script src="app.js"></script>
   </body>
