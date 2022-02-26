@@ -73,7 +73,7 @@ const hpDeduction = () => {
   }
   //for hp colors as it decreases
   if (playerHPValue[opposite()] > 30 && playerHPValue[opposite()] < 60) {
-    playerHP.style.backgroundColor = 'orange';
+    playerHP.style.background = 'orange';
   } else if (playerHPValue[opposite()] < 30) {
     playerHP.style.backgroundColor = 'red';
     playAudio(hpCritical);

@@ -89,6 +89,7 @@ body {
 
 .hp-bar-right {
   flex-direction: row-reverse;
+
 }
 
 .hp-bar {
@@ -103,6 +104,10 @@ body {
     rgb(78, 185, 71) 80%,
     rgb(41, 137, 65) 80%
   );
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'Arcade';
 }
 
 .stamina-container {
