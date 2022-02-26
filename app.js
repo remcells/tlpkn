@@ -29,6 +29,7 @@ drawCard.addEventListener('click', function () {
   // Generate random power-up
   let randomNum = Math.floor(Math.random() * 6) * 2;
   document.getElementById('power-up').textContent = randomNum;
+  document.getElementById('power-up').src = `assets/images/card-${randomNum}.png`;
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
@@ -48,6 +49,7 @@ const opposite = () => {
 };
 //function for attack btn; HP - totalAttackPower;
 const hpDeduction = () => {
+  document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
@@ -64,3 +66,4 @@ const hpDeduction = () => {
   playerHP.innerHTML = playerHPValue[opposite()] + '%';
   switchPlayer();
 };
+
