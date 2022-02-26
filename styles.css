@@ -13,15 +13,28 @@
   flex-flow: column;
 }
 
-.hp-border {
-  width: 300px;
-  height: 30px;
-  border-color: black;
-  border-style: solid;
+.hpBar {
+  border-radius: 10px;
+  background-color: #555;
+  border: 1px solid black;
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.3);
+  display: block;
+  margin: auto;
+  height: 1rem;
+  width: 15rem;
+  padding: 1px;
 }
 
-.current-hp {
-  width: 300px;
-  height: 30px;
-  background-color: green;
+#hpIndicator-one,
+#hpIndicator-two {
+  display: block;
+  height: 1rem;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #04aa6d;
+  margin: 0;
+  border: 0;
+  text-align: center;
+  color: white;
+  font-weight: bold;
 }
