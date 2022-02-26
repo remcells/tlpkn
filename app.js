@@ -48,7 +48,7 @@ const opposite = () => {
 };
 //function for attack btn; HP - totalAttackPower;
 const hpDeduction = () => {
-  const playerHP = document.getElementById(`hpIndicator-${[opposite()]}`);
+  const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
