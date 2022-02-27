@@ -62,7 +62,7 @@ const resetImage = () => {
 };
 const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
-const hpDeduction = () => {
+const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
