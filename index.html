@@ -8,8 +8,22 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- TITLE SCREEN -->
+    <div class="title-screen">
+      <img src="assets/images/game-title-1.png" alt="TLPKN" />
+      <div class="buttons-container">
+        <button class="start-game-btn">
+          <img src="assets/images/start-game-btn.png" alt="Start Game" />
+        </button>
+        <button class="how-to-play-btn">
+          <img src="assets/images/how-to-play-btn.png" alt="How to Play" />
+        </button>
+      </div>
+    </div>
+    <!-- MAIN GAME SCREEN -->
     <div class="game-container">
-      <div class="top-container">
+      <div class="top-container hidden">
+        <!-- PLAYER ONE STATS -->
         <div class="player-0-container">
           <p class="player-number">Player 1</p>
           <div class="hp-container hp-container-left">
@@ -26,6 +40,7 @@
         <div class="game-title">
           <img src="assets/images/game-title-1.png" alt="TLPKN" />
         </div>
+        <!-- PLAYER TWO STATS -->
         <div class="player-1-container">
           <p class="player-number">Player 2</p>
           <div class="hp-container hp-container-right">
@@ -40,7 +55,8 @@
           </div>
         </div>
       </div>
-      <div class="mid-container">
+      <!-- ADD "HIDDEN" CLASS TO MID-CONTAINER WHEN GAME ENDS -->
+      <div class="mid-container hidden">
         <div class="mid-left">
           <p>Attack<br />Power:</p>
           <span class="attack-power-text" id="player-0-power">5</span>
@@ -57,16 +73,62 @@
         </div>
       </div>
       <div class="bottom-container">
-        <img
-          class="chicken-image"
-          src="assets/images/chicken-playerx-attack.png"
-          alt="Chicken"
-        />
-        <button onclick="hpDeduction()" id="attack-btn">
-          <img src="assets/images/attack-btn.png" alt="Attack Button" />
-        </button>
+        <!-- ARROW INDICATORS: USE "INVISIBLE" CLASS INSTEAD OF "HIDDEN" -->
+        <div class="arrow-container">
+          <img
+            class="arrow-0 bounce invisible"
+            src="assets/images/arrow.png"
+            alt="Arrow"
+          />
+          <img
+            class="arrow-1 bounce invisible"
+            src="assets/images/arrow.png"
+            alt="Arrow"
+          />
+        </div>
+        <!-- CHICKEN AVATAR -->
+        <div class="avatars">
+          <img
+            class="shrubs"
+            src="assets/images/shrubs-left.png"
+            alt="Shrubs"
+          />
+          <img
+            class="chicken-image"
+            src="assets/images/chicken-playerx-attack.png"
+            alt="Chicken"
+          />
+          <img
+            class="shrubs"
+            src="assets/images/shrubs-right.png"
+            alt="Shrubs"
+          />
+        </div>
+        <div class="foreground-container">
+          <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
+          <button class="hidden" onclick="hpDeduction()" id="attack-btn">
+            <img src="assets/images/attack-btn.png" alt="Attack Button" />
+          </button>
+        </div>
       </div>
     </div>
+    <!-- GAME OVER SCREEN. UNHIDE WHEN GAME ENDS. USE 'FLEX-DIRECTION: ROW-REVERSE' TO FLIP -->
+    <div class="game-over hidden">
+      <div class="winner-side">
+        <img class="trophy" src="assets/images/trophy.png" alt="Trophy" />
+        <img class="winner-text" src="assets/images/winner.png" alt="Winner" />
+      </div>
+      <div class="loser-side">
+        <img class="loser-text" src="assets/images/loser.png" alt="Loser" />
+      </div>
+    </div>
+    <!-- INSTRUCTIONS WINDOW -->
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Instructions</h1>
+      <p class="modal-text"></p>
+    </div>
+    <div class="blur hidden"></div>
     <script src="app.js"></script>
   </body>
 </html>
