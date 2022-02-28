@@ -7,34 +7,34 @@ const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 
 //Sound Effects Assets
-const startGameAudio = new Audio("assets/audio/start-game.mp3");
-const powerUpPlus = new Audio("assets/audio/power-up-plus.mp3");
-const powerUpZero = new Audio("assets/audio/power-up-zero.mp3");
-const attackSound = new Audio("assets/audio/attack.mp3");
-const hpCritical = new Audio("assets/audio/hp-critical.mp3");
-const winSound = new Audio("assets/audio/win.mp3");
+const startGameAudio = new Audio('assets/audio/start-game.mp3');
+const powerUpPlus = new Audio('assets/audio/power-up-plus.mp3');
+const powerUpZero = new Audio('assets/audio/power-up-zero.mp3');
+const attackSound = new Audio('assets/audio/attack.mp3');
+const hpCritical = new Audio('assets/audio/hp-critical.mp3');
+const winSound = new Audio('assets/audio/win.mp3');
 
 //Sound Effects
 const playAudio = (audioFile) => {
   audioFile.play();
-}
+};
 
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
-  document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
+  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
   if (stamina[activePlayer] <= 0) {
-        document.getElementById('power-up-btn').disabled = true;
-      } else {
-        document.getElementById('power-up-btn').disabled = false;
-      }
+    document.getElementById('power-up-btn').disabled = true;
+  } else {
+    document.getElementById('power-up-btn').disabled = false;
+  }
 };
 
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
-  document.getElementById(`player-${[activePlayer]}-stamina`).textContent =
+  document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
 
   // Check Stamina
@@ -53,7 +53,7 @@ drawCard.addEventListener('click', function () {
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
-    document.getElementById(`player-${[activePlayer]}-power`).textContent =
+    document.getElementById(`player-${activePlayer}-power`).textContent =
       attackPower[activePlayer];
     playAudio(powerUpPlus);
   } else {
@@ -82,10 +82,14 @@ const resetImage = () => {
 };
 const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
+
+const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+
 const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
+  const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio(attackSound);
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
@@ -93,14 +97,16 @@ const chickenAttack = () => {
   }
   //for hp colors as it decreases
   if (playerHPValue[opposite()] > 30 && playerHPValue[opposite()] < 60) {
-    playerHP.style.background = 'orange';
+    playerHP.style.background =
+      'linear-gradient(180deg, #fff2b4 0, #fff2b4 15%, #ffa118 15%, #ffa118 80%, #ff7f0d 80%)';
   } else if (playerHPValue[opposite()] < 30) {
-    playerHP.style.backgroundColor = 'red';
+    playerHP.style.background =
+      'linear-gradient(180deg, #ffa7bd 0, #ffa7bd 15%, #ff2968 15%, #ff2968 80%, #c40851 80%)';
     playAudio(hpCritical);
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
-  playerHP.innerHTML = playerHPValue[opposite()] + '%';
+  playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   setInterval(resetImage, 2000);
   switchPlayer();
