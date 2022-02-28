@@ -6,6 +6,19 @@ let activePlayer = 0;
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 
+//Sound Effects Assets
+const startGame = new Audio("assets/audio/start-game.mp3");
+const powerUpPlus = new Audio("assets/audio/power-up-plus.mp3");
+const powerUpZero = new Audio("assets/audio/power-up-zero.mp3");
+const attackSound = new Audio("assets/audio/attack.mp3");
+const hpCritical = new Audio("assets/audio/hp-critical.mp3");
+const winSound = new Audio("assets/audio/win.mp3");
+
+//Sound Effects
+const playAudio = (audioFile) => {
+  audioFile.play();
+}
+
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
@@ -37,8 +50,10 @@ drawCard.addEventListener('click', function () {
     attackPower[activePlayer] = totalAttackPower;
     document.getElementById(`player-${[activePlayer]}-power`).textContent =
       attackPower[activePlayer];
+    playAudio(powerUpPlus);
   } else {
     switchPlayer();
+    playAudio(powerUpZero);
   }
 });
 //Opposites the active player: for the damage application to the opponent
@@ -66,6 +81,7 @@ const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
+  playAudio(attackSound);
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
@@ -74,7 +90,8 @@ const chickenAttack = () => {
   if (playerHPValue[opposite()] > 30 && playerHPValue[opposite()] < 60) {
     playerHP.style.background = 'orange';
   } else if (playerHPValue[opposite()] < 30) {
-    playerHP.style.background = 'red';
+    playerHP.style.backgroundColor = 'red';
+    playAudio(hpCritical);
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
@@ -83,3 +100,33 @@ const chickenAttack = () => {
   setInterval(resetImage, 2000);
   switchPlayer();
 };
+
+// TITLE SCREEN & MODAL WINDOW
+const titleScreen = document.querySelector('.title-screen');
+const startGame = document.querySelector('.start-game-btn');
+const modal = document.querySelector('.modal');
+const blurModal = document.querySelector('.blur');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnOpenModal = document.querySelector('.how-to-play-btn');
+const topContainer = document.querySelector('.top-container');
+const midContainer = document.querySelector('.mid-container');
+const indicator = document.querySelector('.arrow-0');
+
+const openAndCloseModal = function () {
+  modal.classList.toggle('hidden');
+  blurModal.classList.toggle('hidden');
+  titleScreen.classList.toggle('hidden');
+};
+
+const newGame = function () {
+  titleScreen.classList.add('hidden');
+  topContainer.classList.remove('hidden');
+  midContainer.classList.remove('hidden');
+  indicator.classList.remove('invisible');
+  attack.classList.remove('hidden');
+};
+
+btnOpenModal.addEventListener('click', openAndCloseModal);
+btnCloseModal.addEventListener('click', openAndCloseModal);
+blurModal.addEventListener('click', openAndCloseModal);
+startGame.addEventListener('click', newGame);
