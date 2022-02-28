@@ -113,7 +113,6 @@ body {
 
 .hp-bar-right {
   flex-direction: row-reverse;
-
 }
 
 .hp-bar {
@@ -155,6 +154,7 @@ body {
   font-weight: bold;
   font-size: 20px;
   font-family: 'Arcade';
+  transition: width 0.25s linear;
 }
 
 

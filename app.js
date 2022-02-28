@@ -42,7 +42,9 @@ drawCard.addEventListener('click', function () {
   // Generate random power-up
   let randomNum = Math.floor(Math.random() * 6) * 2;
   document.getElementById('power-up').textContent = randomNum;
-  document.getElementById('power-up').src = `assets/images/card-${randomNum}.png`;
+  document.getElementById(
+    'power-up'
+  ).src = `assets/images/card-${randomNum}.png`;
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
@@ -62,8 +64,21 @@ const opposite = () => {
     return 0;
   }
 };
+const attackAnimate = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
+};
+
+const resetImage = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-playerx-attack.png`;
+};
+const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
-const hpDeduction = () => {
+const chickenAttack = () => {
+  resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   playAudio(attackSound);
@@ -81,6 +96,8 @@ const hpDeduction = () => {
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
   playerHP.innerHTML = playerHPValue[opposite()] + '%';
+  attackAnimate();
+  setInterval(resetImage, 2000);
   switchPlayer();
 };
 
