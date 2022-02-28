@@ -23,11 +23,16 @@ const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
+  if (stamina[activePlayer] <= 0) {
+        document.getElementById('power-up-btn').disabled = true;
+      } else {
+        document.getElementById('power-up-btn').disabled = false;
+      }
 };
 
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
-  let remainingStamina = stamina[activePlayer] - 5;
+  let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
   document.getElementById(`player-${[activePlayer]}-stamina`).textContent =
     stamina[activePlayer];
