@@ -84,4 +84,32 @@ const hpDeduction = () => {
   switchPlayer();
 };
 
- 
+// TITLE SCREEN & MODAL WINDOW
+const titleScreen = document.querySelector('.title-screen');
+const startGame = document.querySelector('.start-game-btn');
+const modal = document.querySelector('.modal');
+const blurModal = document.querySelector('.blur');
+const btnCloseModal = document.querySelector('.close-modal');
+const btnOpenModal = document.querySelector('.how-to-play-btn');
+const topContainer = document.querySelector('.top-container');
+const midContainer = document.querySelector('.mid-container');
+const indicator = document.querySelector('.arrow-0');
+
+const openAndCloseModal = function () {
+  modal.classList.toggle('hidden');
+  blurModal.classList.toggle('hidden');
+  titleScreen.classList.toggle('hidden');
+};
+
+const newGame = function () {
+  titleScreen.classList.add('hidden');
+  topContainer.classList.remove('hidden');
+  midContainer.classList.remove('hidden');
+  indicator.classList.remove('invisible');
+  attack.classList.remove('hidden');
+};
+
+btnOpenModal.addEventListener('click', openAndCloseModal);
+btnCloseModal.addEventListener('click', openAndCloseModal);
+blurModal.addEventListener('click', openAndCloseModal);
+startGame.addEventListener('click', newGame);
