@@ -5,31 +5,61 @@ let activePlayer = 0;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
+const gameEnd = document.querySelector('.game-over');
 
 //Sound Effects Assets
-const startGameAudio = new Audio("assets/audio/start-game.mp3");
-const powerUpPlus = new Audio("assets/audio/power-up-plus.mp3");
-const powerUpZero = new Audio("assets/audio/power-up-zero.mp3");
-const attackSound = new Audio("assets/audio/attack.mp3");
-const hpCritical = new Audio("assets/audio/hp-critical.mp3");
-const winSound = new Audio("assets/audio/win.mp3");
+const startGameAudio = new Audio('assets/audio/start-game.mp3');
+const powerUpPlus = new Audio('assets/audio/power-up-plus.mp3');
+const powerUpZero = new Audio('assets/audio/power-up-zero.mp3');
+const attackSound = new Audio('assets/audio/attack.mp3');
+const hpCritical = new Audio('assets/audio/hp-critical.mp3');
+const winSound = new Audio('assets/audio/win.mp3');
 
 //Sound Effects
 const playAudio = (audioFile) => {
   audioFile.play();
-}
-
+};
+//Opposites the active player: for the damage application to the opponent
+const opposite = () => {
+  if (activePlayer === 0) {
+    return 1;
+  } else {
+    return 0;
+  }
+};
+//Resets the attacking chicken image back to normal
+const resetImage = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-playerx-attack.png`;
+};
+//GAME OVER
+const gameOver = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
+  midContainer.classList.add('hidden');
+  if (activePlayer === 1) {
+    gameEnd.style.flexDirection = 'row-reverse';
+  }
+  gameEnd.classList.toggle('hidden');
+};
+//Switch player functionality
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
+  if (playerHPValue[activePlayer] === 0) {
+    switchPlayer();
+    gameOver();
+  }
   if (stamina[activePlayer] <= 0) {
-        document.getElementById('power-up-btn').disabled = true;
-      } else {
-        document.getElementById('power-up-btn').disabled = false;
-      }
+    document.getElementById('power-up-btn').disabled = true;
+  } else {
+    document.getElementById('power-up-btn').disabled = false;
+  }
 };
-
+//Power Up random onClick
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
@@ -61,33 +91,30 @@ drawCard.addEventListener('click', function () {
     playAudio(powerUpZero);
   }
 });
-//Opposites the active player: for the damage application to the opponent
-const opposite = () => {
-  if (activePlayer === 0) {
-    return 1;
+//switching arrows functionaility
+const arrowSwitch = () => {
+  if (activePlayer === 1) {
+    indicator0.classList.add('invisible');
+    indicator1.classList.remove('invisible');
   } else {
-    return 0;
+    indicator0.classList.remove('invisible');
+    indicator1.classList.add('invisible');
   }
 };
+
 const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
 };
 
-const resetImage = () => {
-  document.getElementById(
-    'chickens'
-  ).src = `assets/images/chicken-playerx-attack.png`;
-};
-const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
 const chickenAttack = () => {
-  resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   playAudio(attackSound);
   playerHPValue[opposite()] -= attackPower[activePlayer];
+
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
   }
@@ -102,8 +129,11 @@ const chickenAttack = () => {
   playerHP.style.width = playerHPValue[opposite()] + '%';
   playerHP.innerHTML = playerHPValue[opposite()] + '%';
   attackAnimate();
-  setInterval(resetImage, 2000);
+  if (playerHPValue[opposite()] > 0) {
+    setTimeout(resetImage, 250);
+  }
   switchPlayer();
+  arrowSwitch();
 };
 
 // TITLE SCREEN & MODAL WINDOW
@@ -115,7 +145,8 @@ const btnCloseModal = document.querySelector('.close-modal');
 const btnOpenModal = document.querySelector('.how-to-play-btn');
 const topContainer = document.querySelector('.top-container');
 const midContainer = document.querySelector('.mid-container');
-const indicator = document.querySelector('.arrow-0');
+const indicator0 = document.querySelector('.arrow-0');
+const indicator1 = document.querySelector('.arrow-1');
 
 const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
@@ -127,7 +158,7 @@ const newGame = function () {
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
   midContainer.classList.remove('hidden');
-  indicator.classList.remove('invisible');
+  indicator0.classList.remove('invisible');
   attack.classList.remove('hidden');
 };
 
