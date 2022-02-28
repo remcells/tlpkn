@@ -6,17 +6,32 @@ let activePlayer = 0;
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 
-//Sound Effects Assets
-const startGameAudio = new Audio("assets/audio/start-game.mp3");
-const powerUpPlus = new Audio("assets/audio/power-up-plus.mp3");
-const powerUpZero = new Audio("assets/audio/power-up-zero.mp3");
-const attackSound = new Audio("assets/audio/attack.mp3");
-const hpCritical = new Audio("assets/audio/hp-critical.mp3");
-const winSound = new Audio("assets/audio/win.mp3");
-
-//Sound Effects
-const playAudio = (audioFile) => {
-  audioFile.play();
+const playAudio = (move) => {
+  switch (move) {
+    case 'startGameAudio':
+      return new Audio("assets/audio/start-game.mp3").play();
+      break;
+    case 'roosterCrowAudio':
+      return new Audio("assets/audio/rooster-crow.mp3").play();
+      break;
+    case 'powerUpPlusAudio':
+      return new Audio("assets/audio/power-up-plus.mp3").play();
+      break;
+    case 'powerUpZeroAudio':
+      return new Audio("assets/audio/power-up-zero.mp3").play();
+      break;
+    case 'attackAudio':
+      return new Audio("assets/audio/attack.mp3").play();
+      break;
+    case 'hpCriticalAudio':
+      return new Audio("assets/audio/hp-critical.mp3").play();
+      break;
+    case 'winGameAudio':
+      return new Audio("assets/audio/winner.mp3").play();
+      break;
+    default:
+      break;
+  }
 }
 
 const switchPlayer = () => {
@@ -50,10 +65,10 @@ drawCard.addEventListener('click', function () {
     attackPower[activePlayer] = totalAttackPower;
     document.getElementById(`player-${[activePlayer]}-power`).textContent =
       attackPower[activePlayer];
-    playAudio(powerUpPlus);
+    playAudio('powerUpPlusAudio');
   } else {
     switchPlayer();
-    playAudio(powerUpZero);
+    playAudio('powerUpZeroAudio');
   }
 });
 //Opposites the active player: for the damage application to the opponent
@@ -81,7 +96,7 @@ const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
-  playAudio(attackSound);
+  playAudio('attackAudio');
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
@@ -91,7 +106,7 @@ const chickenAttack = () => {
     playerHP.style.background = 'orange';
   } else if (playerHPValue[opposite()] < 30) {
     playerHP.style.backgroundColor = 'red';
-    playAudio(hpCritical);
+    playAudio('hpCriticalAudio');
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
@@ -116,6 +131,7 @@ const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
   blurModal.classList.toggle('hidden');
   titleScreen.classList.toggle('hidden');
+  playAudio('startGameAudio');
 };
 
 const newGame = function () {
@@ -124,6 +140,8 @@ const newGame = function () {
   midContainer.classList.remove('hidden');
   indicator.classList.remove('invisible');
   attack.classList.remove('hidden');
+  playAudio('startGameAudio');
+  playAudio('roosterCrowAudio');
 };
 
 btnOpenModal.addEventListener('click', openAndCloseModal);
