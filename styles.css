@@ -113,6 +113,7 @@ body {
 
 .hp-bar-right {
   flex-direction: row-reverse;
+
 }
 
 .hp-bar {
@@ -478,3 +479,4 @@ body {
   font-family: 'Arcade';
   font-size: 1.3rem;
 }
+ 
