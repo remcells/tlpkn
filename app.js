@@ -7,7 +7,7 @@ const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 
 //Sound Effects Assets
-const startGame = new Audio("assets/audio/start-game.mp3");
+const startGameAudio = new Audio("assets/audio/start-game.mp3");
 const powerUpPlus = new Audio("assets/audio/power-up-plus.mp3");
 const powerUpZero = new Audio("assets/audio/power-up-zero.mp3");
 const attackSound = new Audio("assets/audio/attack.mp3");
