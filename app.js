@@ -1,7 +1,8 @@
 let playerHPValue = [100, 100];
 const attackPower = [5, 5];
-const stamina = [50, 50];
+let stamina = [50, 50];
 let activePlayer = 0;
+let staminaRegen = 10;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
@@ -60,20 +61,21 @@ const playAudio = (type) => {
   if (!audio) {
     throw new 'No audio type for that!'(); // TODO: Change for better error
   }
-
   audio.audio.play();
 };
 
 //Resets the attacking chicken image back to normal
 const resetImage = () => {
-  document.getElementById(
-    'chickens'
-  ).src = `assets/images/chicken-playerx-attack.png`;
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
   removeArrows.style.visibility = 'visible';
 };
 const removeArrows = document.querySelector('.arrow-container');
 //GAME OVER
 const gameOver = () => {
+  document.querySelector('.play-again').src =
+    'assets/images/play-again-btn.png';
+  attack.setAttribute('onclick', 'playAgain()');
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
@@ -83,9 +85,12 @@ const gameOver = () => {
   }
   gameEnd.classList.toggle('hidden');
   removeArrows.style.visibility = 'hidden';
+  const againbtn = (document.getElementById(
+    'play-again'
+  ).src = `assets/images/play-again-btn.png`);
 };
-//Switch player functionality
 
+//Switch player functionality
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${activePlayer}-power`).textContent = 5;
@@ -93,8 +98,9 @@ const switchPlayer = () => {
   if (playerHPValue[activePlayer] === 0) {
     switchPlayer();
     gameOver();
+    playAudio('win');
   }
-  if (stamina[activePlayer] <= 0) {
+  if (stamina[activePlayer] < 10) {
     document.getElementById('power-up-btn').disabled = true;
   } else {
     document.getElementById('power-up-btn').disabled = false;
@@ -118,7 +124,7 @@ drawCard.addEventListener('click', function () {
   document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
   // Check Stamina
-  if (stamina[activePlayer] <= 0) {
+  if (stamina[activePlayer] < 10) {
     document.getElementById('power-up-btn').disabled = true;
   } else {
     document.getElementById('power-up-btn').disabled = false;
@@ -166,9 +172,10 @@ const chickenAttack = () => {
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
+  stamina[activePlayer] += staminaRegen;
+  document.getElementById(`player-${activePlayer}-stamina`).textContent =
+    stamina[activePlayer];
   playerHPValue[opposite()] -= attackPower[activePlayer];
-  stamina[activePlayer] += 5;
-
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
   }
@@ -211,7 +218,7 @@ const openAndCloseModal = function () {
   titleScreen.classList.toggle('hidden');
   playAudio('start');
 };
-
+//  NEW GAME
 const newGame = function () {
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
@@ -221,11 +228,35 @@ const newGame = function () {
   playAudio('start');
   playAudio('rooster');
 };
-
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
+
+// PLAY AGAIN FUNCTION
+const playAgain = () => {
+  newGame();
+  gameEnd.classList.toggle('hidden');
+  document.querySelector('.play-again').src = 'assets/images/attack-btn.png';
+  attack.setAttribute('onclick', 'chickenAttack()');
+  document.getElementById('hp-bar-0').style.width = 100 + '%';
+  document.getElementById('hp-bar-1').style.width = 100 + '%';
+  document.getElementById('hp-bar-0').style.background =
+    'linear-gradient(180deg, #6ae061 0, #6ae061 15%, #4eb947 15%, #4eb947 80%, #298941 80%)';
+  document.getElementById('hp-bar-1').style.background =
+    'linear-gradient(180deg, #6ae061 0, #6ae061 15%, #4eb947 15%, #4eb947 80%, #298941 80%)';
+  playerHPValue = [100, 100];
+  document.getElementById('hp-text-0').textContent = playerHPValue[0];
+  document.getElementById('hp-text-1').textContent = playerHPValue[1];
+  stamina = [50, 50];
+  document.getElementById('player-0-stamina').textContent = stamina[0];
+  document.getElementById('player-1-stamina').textContent = stamina[1];
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
+  indicator0.classList.remove('invisible');
+  indicator1.classList.add('invisible');
+  activePlayer = 0;
+};
 
 (() => {
   // Preload assets
