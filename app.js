@@ -38,7 +38,6 @@ const audios = [
   },
 ];
 
-
 const loadAudios = () => {
   audios
     .map((audio) => {
@@ -62,7 +61,6 @@ const playAudio = (type) => {
   if (!audio) {
     throw new 'No audio type for that!'(); // TODO: Change for better error
   }
-
   audio.audio.play();
 };
 
@@ -82,10 +80,11 @@ const gameOver = () => {
   midContainer.classList.add('hidden');
   if (activePlayer === 1) {
     gameEnd.style.flexDirection = 'row-reverse';
-    
   }
   gameEnd.classList.toggle('hidden');
-  const againbtn = document.getElementById('play-again').src = `assets/images/play-again-btn.png` ;
+  const againbtn = (document.getElementById(
+    'play-again'
+  ).src = `assets/images/play-again-btn.png`);
 };
 
 //Switch player functionality
@@ -219,7 +218,6 @@ const newGame = function () {
   playAudio('start');
   playAudio('rooster');
 };
-
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
