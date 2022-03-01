@@ -2,6 +2,7 @@ let playerHPValue = [100, 100];
 const attackPower = [5, 5];
 let stamina = [50, 50];
 let activePlayer = 0;
+let staminaRegen = 10;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
@@ -36,6 +37,7 @@ const audios = [
     path: 'assets/audio/winner.mp3',
   },
 ];
+
 
 const loadAudios = () => {
   audios
@@ -80,11 +82,13 @@ const gameOver = () => {
   midContainer.classList.add('hidden');
   if (activePlayer === 1) {
     gameEnd.style.flexDirection = 'row-reverse';
+    
   }
   gameEnd.classList.toggle('hidden');
+  const againbtn = document.getElementById('play-again').src = `assets/images/play-again-btn.png` ;
 };
-//Switch player functionality
 
+//Switch player functionality
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${activePlayer}-power`).textContent = 5;
@@ -93,7 +97,7 @@ const switchPlayer = () => {
     switchPlayer();
     gameOver();
   }
-  if (stamina[activePlayer] <= 0) {
+  if (stamina[activePlayer] < 10) {
     document.getElementById('power-up-btn').disabled = true;
   } else {
     document.getElementById('power-up-btn').disabled = false;
@@ -106,9 +110,8 @@ drawCard.addEventListener('click', function () {
   stamina[activePlayer] = remainingStamina;
   document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
-
   // Check Stamina
-  if (stamina[activePlayer] <= 0) {
+  if (stamina[activePlayer] < 10) {
     document.getElementById('power-up-btn').disabled = true;
   } else {
     document.getElementById('power-up-btn').disabled = false;
@@ -161,8 +164,10 @@ const chickenAttack = () => {
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
+  stamina[activePlayer] += staminaRegen;
+  document.getElementById(`player-${activePlayer}-stamina`).textContent =
+    stamina[activePlayer];
   playerHPValue[opposite()] -= attackPower[activePlayer];
-
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
   }
@@ -204,7 +209,7 @@ const openAndCloseModal = function () {
   titleScreen.classList.toggle('hidden');
   playAudio('start');
 };
-
+//  NEW GAME
 const newGame = function () {
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
