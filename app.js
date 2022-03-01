@@ -218,7 +218,6 @@ const newGame = function () {
   playAudio('start');
   playAudio('rooster');
 };
-
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
