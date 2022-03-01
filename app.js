@@ -95,6 +95,7 @@ const switchPlayer = () => {
   if (playerHPValue[activePlayer] === 0) {
     switchPlayer();
     gameOver();
+    playAudio('win');
   }
   if (stamina[activePlayer] < 10) {
     document.getElementById('power-up-btn').disabled = true;
