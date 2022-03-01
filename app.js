@@ -65,20 +65,20 @@ const playAudio = (type) => {
 
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
-  document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
+  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
   if (stamina[activePlayer] <= 0) {
-        document.getElementById('power-up-btn').disabled = true;
-      } else {
-        document.getElementById('power-up-btn').disabled = false;
-      }
+    document.getElementById('power-up-btn').disabled = true;
+  } else {
+    document.getElementById('power-up-btn').disabled = false;
+  }
 };
 
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
-  document.getElementById(`player-${[activePlayer]}-stamina`).textContent =
+  document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
 
   // Check Stamina
@@ -97,7 +97,7 @@ drawCard.addEventListener('click', function () {
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
-    document.getElementById(`player-${[activePlayer]}-power`).textContent =
+    document.getElementById(`player-${activePlayer}-power`).textContent =
       attackPower[activePlayer];
     playAudio('power-up-plus');
   } else {
@@ -122,25 +122,31 @@ const resetImage = () => {
 };
 const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
+
+const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+
 const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
-  playAudio('attack');
+  const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+  playAudio(attackSound);
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
   }
   //for hp colors as it decreases
   if (playerHPValue[opposite()] > 30 && playerHPValue[opposite()] < 60) {
-    playerHP.style.background = 'orange';
+    playerHP.style.background =
+      'linear-gradient(180deg, #fff2b4 0, #fff2b4 15%, #ffa118 15%, #ffa118 80%, #ff7f0d 80%)';
   } else if (playerHPValue[opposite()] < 30) {
-    playerHP.style.backgroundColor = 'red';
-    playAudio('hp-critical');
+    playerHP.style.background =
+      'linear-gradient(180deg, #ffa7bd 0, #ffa7bd 15%, #ff2968 15%, #ff2968 80%, #c40851 80%)';
+    playAudio(hpCritical);
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
-  playerHP.innerHTML = playerHPValue[opposite()] + '%';
+  playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   setInterval(resetImage, 2000);
   switchPlayer();
