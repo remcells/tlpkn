@@ -69,7 +69,9 @@ const resetImage = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-playerx-attack.png`;
+  removeArrows.style.visibility = 'visible';
 };
+const removeArrows = document.querySelector('.arrow-container');
 //GAME OVER
 const gameOver = () => {
   document.getElementById(
@@ -80,6 +82,7 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
+  removeArrows.style.visibility = 'hidden';
 };
 //Switch player functionality
 
@@ -97,6 +100,16 @@ const switchPlayer = () => {
     document.getElementById('power-up-btn').disabled = false;
   }
 };
+//switching arrows functionaility
+const arrowSwitch = () => {
+  if (activePlayer === 1) {
+    indicator0.classList.add('invisible');
+    indicator1.classList.remove('invisible');
+  } else {
+    indicator0.classList.remove('invisible');
+    indicator1.classList.add('invisible');
+  }
+};
 //Power Up random onClick
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
@@ -104,7 +117,6 @@ drawCard.addEventListener('click', function () {
   stamina[activePlayer] = remainingStamina;
   document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
-
   // Check Stamina
   if (stamina[activePlayer] <= 0) {
     document.getElementById('power-up-btn').disabled = true;
@@ -126,19 +138,11 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-plus');
   } else {
     switchPlayer();
+    arrowSwitch();
     playAudio('power-up-zero');
   }
 });
-//switching arrows functionaility
-const arrowSwitch = () => {
-  if (activePlayer === 1) {
-    indicator0.classList.add('invisible');
-    indicator1.classList.remove('invisible');
-  } else {
-    indicator0.classList.remove('invisible');
-    indicator1.classList.add('invisible');
-  }
-};
+
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
@@ -148,7 +152,10 @@ const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
+  removeArrows.style.visibility = 'hidden';
 };
+
+let resetTimeOut;
 
 //function for attack btn; HP - totalAttackPower;
 
@@ -160,6 +167,7 @@ const chickenAttack = () => {
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
   playerHPValue[opposite()] -= attackPower[activePlayer];
+  stamina[activePlayer] += 5;
 
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
@@ -178,7 +186,8 @@ const chickenAttack = () => {
   playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
-    setTimeout(resetImage, 250);
+    clearTimeout(resetTimeOut);
+    resetTimeOut = setTimeout(resetImage, 2000);
   }
   switchPlayer();
   arrowSwitch();
