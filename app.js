@@ -6,27 +6,64 @@ let activePlayer = 0;
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 const gameEnd = document.querySelector('.game-over');
+const audios = [
+  {
+    type: 'start',
+    path: 'assets/audio/start-game.mp3',
+  },
+  {
+    type: 'rooster',
+    path: 'assets/audio/rooster-crow.mp3',
+  },
+  {
+    type: 'power-up-plus',
+    path: 'assets/audio/power-up-plus.mp3',
+  },
+  {
+    type: 'power-up-zero',
+    path: 'assets/audio/power-up-zero.mp3',
+  },
+  {
+    type: 'attack',
+    path: 'assets/audio/attack.mp3',
+  },
+  {
+    type: 'hp-critical',
+    path: 'assets/audio/hp-critical.mp3',
+  },
+  {
+    type: 'win',
+    path: 'assets/audio/winner.mp3',
+  },
+];
 
-//Sound Effects Assets
-const startGameAudio = new Audio('assets/audio/start-game.mp3');
-const powerUpPlus = new Audio('assets/audio/power-up-plus.mp3');
-const powerUpZero = new Audio('assets/audio/power-up-zero.mp3');
-const attackSound = new Audio('assets/audio/attack.mp3');
-const hpCritical = new Audio('assets/audio/hp-critical.mp3');
-const winSound = new Audio('assets/audio/win.mp3');
+const loadAudios = () => {
+  audios
+    .map((audio) => {
+      audio.audio = new Audio(audio.path);
 
-//Sound Effects
-const playAudio = (audioFile) => {
-  audioFile.play();
+      return audio;
+    })
+    .forEach((audio) => {
+      audio.audio.addEventListener('canplaythrough', (e) => {
+        audioCounter++;
+        // TODO: Add something better to indicate that all audios can play
+      });
+    });
 };
-//Opposites the active player: for the damage application to the opponent
-const opposite = () => {
-  if (activePlayer === 0) {
-    return 1;
-  } else {
-    return 0;
+
+let audioCounter = 0;
+
+const playAudio = (type) => {
+  const audio = audios.find((audio) => audio.type === type);
+
+  if (!audio) {
+    throw new 'No audio type for that!'(); // TODO: Change for better error
   }
+
+  audio.audio.play();
 };
+
 //Resets the attacking chicken image back to normal
 const resetImage = () => {
   document.getElementById(
@@ -45,9 +82,10 @@ const gameOver = () => {
   gameEnd.classList.toggle('hidden');
 };
 //Switch player functionality
+
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
-  document.getElementById(`player-${[activePlayer]}-power`).textContent = 5;
+  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
   if (playerHPValue[activePlayer] === 0) {
     switchPlayer();
@@ -64,7 +102,7 @@ drawCard.addEventListener('click', function () {
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
-  document.getElementById(`player-${[activePlayer]}-stamina`).textContent =
+  document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
 
   // Check Stamina
@@ -83,12 +121,12 @@ drawCard.addEventListener('click', function () {
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
-    document.getElementById(`player-${[activePlayer]}-power`).textContent =
+    document.getElementById(`player-${activePlayer}-power`).textContent =
       attackPower[activePlayer];
-    playAudio(powerUpPlus);
+    playAudio('power-up-plus');
   } else {
     switchPlayer();
-    playAudio(powerUpZero);
+    playAudio('power-up-zero');
   }
 });
 //switching arrows functionaility
@@ -101,6 +139,10 @@ const arrowSwitch = () => {
     indicator1.classList.add('invisible');
   }
 };
+//Opposites the active player: for the damage application to the opponent
+const opposite = () => {
+  return activePlayer === 0 ? 1 : 0;
+};
 
 const attackAnimate = () => {
   document.getElementById(
@@ -109,10 +151,14 @@ const attackAnimate = () => {
 };
 
 //function for attack btn; HP - totalAttackPower;
+
+const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+
 const chickenAttack = () => {
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
-  playAudio(attackSound);
+  const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+  playAudio('attack');
   playerHPValue[opposite()] -= attackPower[activePlayer];
 
   if (playerHPValue[opposite()] < 0) {
@@ -120,14 +166,16 @@ const chickenAttack = () => {
   }
   //for hp colors as it decreases
   if (playerHPValue[opposite()] > 30 && playerHPValue[opposite()] < 60) {
-    playerHP.style.background = 'orange';
+    playerHP.style.background =
+      'linear-gradient(180deg, #fff2b4 0, #fff2b4 15%, #ffa118 15%, #ffa118 80%, #ff7f0d 80%)';
   } else if (playerHPValue[opposite()] < 30) {
-    playerHP.style.backgroundColor = 'red';
-    playAudio(hpCritical);
+    playerHP.style.background =
+      'linear-gradient(180deg, #ffa7bd 0, #ffa7bd 15%, #ff2968 15%, #ff2968 80%, #c40851 80%)';
+    playAudio('hp-critical');
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
-  playerHP.innerHTML = playerHPValue[opposite()] + '%';
+  playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
     setTimeout(resetImage, 250);
@@ -152,6 +200,7 @@ const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
   blurModal.classList.toggle('hidden');
   titleScreen.classList.toggle('hidden');
+  playAudio('start');
 };
 
 const newGame = function () {
@@ -160,9 +209,16 @@ const newGame = function () {
   midContainer.classList.remove('hidden');
   indicator0.classList.remove('invisible');
   attack.classList.remove('hidden');
+  playAudio('start');
+  playAudio('rooster');
 };
 
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
+
+(() => {
+  // Preload assets
+  loadAudios();
+})();
