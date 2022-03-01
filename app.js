@@ -5,18 +5,62 @@ let activePlayer = 0;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
+const audios = [
+  {
+    type: 'start',
+    path: 'assets/audio/start-game.mp3',
+  },
+  {
+    type: 'rooster',
+    path: 'assets/audio/rooster-crow.mp3',
+  },
+  {
+    type: 'power-up-plus',
+    path: 'assets/audio/power-up-plus.mp3',
+  },
+  {
+    type: 'power-up-zero',
+    path: 'assets/audio/power-up-zero.mp3',
+  },
+  {
+    type: 'attack',
+    path: 'assets/audio/attack.mp3',
+  },
+  {
+    type: 'hp-critical',
+    path: 'assets/audio/hp-critical.mp3',
+  },
+  {
+    type: 'win',
+    path: 'assets/audio/winner.mp3',
+  },
+];
 
-//Sound Effects Assets
-const startGameAudio = new Audio('assets/audio/start-game.mp3');
-const powerUpPlus = new Audio('assets/audio/power-up-plus.mp3');
-const powerUpZero = new Audio('assets/audio/power-up-zero.mp3');
-const attackSound = new Audio('assets/audio/attack.mp3');
-const hpCritical = new Audio('assets/audio/hp-critical.mp3');
-const winSound = new Audio('assets/audio/win.mp3');
+const loadAudios = () => {
+  audios
+    .map((audio) => {
+      audio.audio = new Audio(audio.path);
 
-//Sound Effects
-const playAudio = (audioFile) => {
-  audioFile.play();
+      return audio;
+    })
+    .forEach((audio) => {
+      audio.audio.addEventListener('canplaythrough', (e) => {
+        audioCounter++;
+        // TODO: Add something better to indicate that all audios can play
+      });
+    });
+};
+
+let audioCounter = 0;
+
+const playAudio = (type) => {
+  const audio = audios.find((audio) => audio.type === type);
+
+  if (!audio) {
+    throw new 'No audio type for that!'(); // TODO: Change for better error
+  }
+
+  audio.audio.play();
 };
 
 const switchPlayer = () => {
@@ -55,19 +99,15 @@ drawCard.addEventListener('click', function () {
     attackPower[activePlayer] = totalAttackPower;
     document.getElementById(`player-${activePlayer}-power`).textContent =
       attackPower[activePlayer];
-    playAudio(powerUpPlus);
+    playAudio('power-up-plus');
   } else {
     switchPlayer();
-    playAudio(powerUpZero);
+    playAudio('power-up-zero');
   }
 });
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
-  if (activePlayer === 0) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return activePlayer === 0 ? 1 : 0;
 };
 const attackAnimate = () => {
   document.getElementById(
@@ -127,6 +167,7 @@ const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
   blurModal.classList.toggle('hidden');
   titleScreen.classList.toggle('hidden');
+  playAudio('start');
 };
 
 const newGame = function () {
@@ -135,9 +176,16 @@ const newGame = function () {
   midContainer.classList.remove('hidden');
   indicator.classList.remove('invisible');
   attack.classList.remove('hidden');
+  playAudio('start');
+  playAudio('rooster');
 };
 
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
+
+(() => {
+  // Preload assets
+  loadAudios();
+})();
