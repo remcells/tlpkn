@@ -5,6 +5,7 @@ let activePlayer = 0;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
+const gameEnd = document.querySelector('.game-over');
 const audios = [
   {
     type: 'start',
@@ -63,17 +64,40 @@ const playAudio = (type) => {
   audio.audio.play();
 };
 
+//Resets the attacking chicken image back to normal
+const resetImage = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-playerx-attack.png`;
+};
+//GAME OVER
+const gameOver = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
+  midContainer.classList.add('hidden');
+  if (activePlayer === 1) {
+    gameEnd.style.flexDirection = 'row-reverse';
+  }
+  gameEnd.classList.toggle('hidden');
+};
+//Switch player functionality
+
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${activePlayer}-power`).textContent = 5;
   activePlayer = activePlayer === 0 ? 1 : 0;
+  if (playerHPValue[activePlayer] === 0) {
+    switchPlayer();
+    gameOver();
+  }
   if (stamina[activePlayer] <= 0) {
     document.getElementById('power-up-btn').disabled = true;
   } else {
     document.getElementById('power-up-btn').disabled = false;
   }
 };
-
+//Power Up random onClick
 drawCard.addEventListener('click', function () {
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
@@ -105,33 +129,38 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-zero');
   }
 });
+//switching arrows functionaility
+const arrowSwitch = () => {
+  if (activePlayer === 1) {
+    indicator0.classList.add('invisible');
+    indicator1.classList.remove('invisible');
+  } else {
+    indicator0.classList.remove('invisible');
+    indicator1.classList.add('invisible');
+  }
+};
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
 };
+
 const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
 };
 
-const resetImage = () => {
-  document.getElementById(
-    'chickens'
-  ).src = `assets/images/chicken-playerx-attack.png`;
-};
-const gameOver = () => {};
 //function for attack btn; HP - totalAttackPower;
 
 const playerHpText = document.getElementById(`hp-text-${opposite()}`);
 
 const chickenAttack = () => {
-  resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
-  playAudio(attackSound);
+  playAudio('attack');
   playerHPValue[opposite()] -= attackPower[activePlayer];
+
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
   }
@@ -142,14 +171,17 @@ const chickenAttack = () => {
   } else if (playerHPValue[opposite()] < 30) {
     playerHP.style.background =
       'linear-gradient(180deg, #ffa7bd 0, #ffa7bd 15%, #ff2968 15%, #ff2968 80%, #c40851 80%)';
-    playAudio(hpCritical);
+    playAudio('hp-critical');
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
   playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
-  setInterval(resetImage, 2000);
+  if (playerHPValue[opposite()] > 0) {
+    setTimeout(resetImage, 250);
+  }
   switchPlayer();
+  arrowSwitch();
 };
 
 // TITLE SCREEN & MODAL WINDOW
@@ -161,7 +193,8 @@ const btnCloseModal = document.querySelector('.close-modal');
 const btnOpenModal = document.querySelector('.how-to-play-btn');
 const topContainer = document.querySelector('.top-container');
 const midContainer = document.querySelector('.mid-container');
-const indicator = document.querySelector('.arrow-0');
+const indicator0 = document.querySelector('.arrow-0');
+const indicator1 = document.querySelector('.arrow-1');
 
 const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
@@ -174,7 +207,7 @@ const newGame = function () {
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
   midContainer.classList.remove('hidden');
-  indicator.classList.remove('invisible');
+  indicator0.classList.remove('invisible');
   attack.classList.remove('hidden');
   playAudio('start');
   playAudio('rooster');
