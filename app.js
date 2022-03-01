@@ -1,6 +1,6 @@
 let playerHPValue = [100, 100];
 const attackPower = [5, 5];
-const stamina = [50, 50];
+let stamina = [50, 50];
 let activePlayer = 0;
 let staminaRegen = 10;
 
@@ -68,12 +68,14 @@ const playAudio = (type) => {
 
 //Resets the attacking chicken image back to normal
 const resetImage = () => {
-  document.getElementById(
-    'chickens'
-  ).src = `assets/images/chicken-playerx-attack.png`;
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
 };
 //GAME OVER
 const gameOver = () => {
+  document.querySelector('.play-again').src =
+    'assets/images/play-again-btn.png';
+  attack.setAttribute('onclick', 'playAgain()');
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
@@ -222,6 +224,31 @@ btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
+
+// PLAY AGAIN FUNCTION
+const playAgain = () => {
+  newGame();
+  gameEnd.classList.toggle('hidden');
+  document.querySelector('.play-again').src = 'assets/images/attack-btn.png';
+  attack.setAttribute('onclick', 'chickenAttack()');
+  document.getElementById('hp-bar-0').style.width = 100 + '%';
+  document.getElementById('hp-bar-1').style.width = 100 + '%';
+  document.getElementById('hp-bar-0').style.background =
+    'linear-gradient(180deg, #6ae061 0, #6ae061 15%, #4eb947 15%, #4eb947 80%, #298941 80%)';
+  document.getElementById('hp-bar-1').style.background =
+    'linear-gradient(180deg, #6ae061 0, #6ae061 15%, #4eb947 15%, #4eb947 80%, #298941 80%)';
+  playerHPValue = [100, 100];
+  document.getElementById('hp-text-0').textContent = playerHPValue[0];
+  document.getElementById('hp-text-1').textContent = playerHPValue[1];
+  stamina = [50, 50];
+  document.getElementById('player-0-stamina').textContent = stamina[0];
+  document.getElementById('player-1-stamina').textContent = stamina[1];
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
+  indicator0.classList.remove('invisible');
+  indicator1.classList.add('invisible');
+  activePlayer = 0;
+};
 
 (() => {
   // Preload assets
