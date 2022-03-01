@@ -5,34 +5,63 @@ let activePlayer = 0;
 
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
+const audios = [
+  {
+    type: 'start',
+    path: 'assets/audio/start-game.mp3',
+  },
+  {
+    type: 'rooster',
+    path: 'assets/audio/rooster-crow.mp3',
+  },
+  {
+    type: 'power-up-plus',
+    path: 'assets/audio/power-up-plus.mp3',
+  },
+  {
+    type: 'power-up-zero',
+    path: 'assets/audio/power-up-zero.mp3',
+  },
+  {
+    type: 'attack',
+    path: 'assets/audio/attack.mp3',
+  },
+  {
+    type: 'hp-critical',
+    path: 'assets/audio/hp-critical.mp3',
+  },
+  {
+    type: 'win',
+    path: 'assets/audio/winner.mp3',
+  },
+];
 
-const playAudio = (move) => {
-  switch (move) {
-    case 'startGameAudio':
-      return new Audio("assets/audio/start-game.mp3").play();
-      break;
-    case 'roosterCrowAudio':
-      return new Audio("assets/audio/rooster-crow.mp3").play();
-      break;
-    case 'powerUpPlusAudio':
-      return new Audio("assets/audio/power-up-plus.mp3").play();
-      break;
-    case 'powerUpZeroAudio':
-      return new Audio("assets/audio/power-up-zero.mp3").play();
-      break;
-    case 'attackAudio':
-      return new Audio("assets/audio/attack.mp3").play();
-      break;
-    case 'hpCriticalAudio':
-      return new Audio("assets/audio/hp-critical.mp3").play();
-      break;
-    case 'winGameAudio':
-      return new Audio("assets/audio/winner.mp3").play();
-      break;
-    default:
-      break;
+const loadAudios = () => {
+  audios
+    .map((audio) => {
+      audio.audio = new Audio(audio.path);
+
+      return audio;
+    })
+    .forEach((audio) => {
+      audio.audio.addEventListener('canplaythrough', (e) => {
+        audioCounter++;
+        // TODO: Add something better to indicate that all audios can play
+      });
+    });
+};
+
+let audioCounter = 0;
+
+const playAudio = (type) => {
+  const audio = audios.find((audio) => audio.type === type);
+
+  if (!audio) {
+    throw new 'No audio type for that!'(); // TODO: Change for better error
   }
-}
+
+  audio.audio.play();
+};
 
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
@@ -65,19 +94,15 @@ drawCard.addEventListener('click', function () {
     attackPower[activePlayer] = totalAttackPower;
     document.getElementById(`player-${[activePlayer]}-power`).textContent =
       attackPower[activePlayer];
-    playAudio('powerUpPlusAudio');
+    playAudio('power-up-plus');
   } else {
     switchPlayer();
-    playAudio('powerUpZeroAudio');
+    playAudio('power-up-zero');
   }
 });
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
-  if (activePlayer === 0) {
-    return 1;
-  } else {
-    return 0;
-  }
+  return activePlayer === 0 ? 1 : 0;
 };
 const attackAnimate = () => {
   document.getElementById(
@@ -96,7 +121,7 @@ const chickenAttack = () => {
   resetImage();
   document.getElementById('power-up').src = `assets/images/card-back.png`;
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
-  playAudio('attackAudio');
+  playAudio('attack');
   playerHPValue[opposite()] -= attackPower[activePlayer];
   if (playerHPValue[opposite()] < 0) {
     playerHPValue[opposite()] = 0;
@@ -106,7 +131,7 @@ const chickenAttack = () => {
     playerHP.style.background = 'orange';
   } else if (playerHPValue[opposite()] < 30) {
     playerHP.style.backgroundColor = 'red';
-    playAudio('hpCriticalAudio');
+    playAudio('hp-critical');
   }
   //Bar displays the decrease in HP
   playerHP.style.width = playerHPValue[opposite()] + '%';
@@ -131,7 +156,7 @@ const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
   blurModal.classList.toggle('hidden');
   titleScreen.classList.toggle('hidden');
-  playAudio('startGameAudio');
+  playAudio('start');
 };
 
 const newGame = function () {
@@ -140,11 +165,16 @@ const newGame = function () {
   midContainer.classList.remove('hidden');
   indicator.classList.remove('invisible');
   attack.classList.remove('hidden');
-  playAudio('startGameAudio');
-  playAudio('roosterCrowAudio');
+  playAudio('start');
+  playAudio('rooster');
 };
 
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
+
+(() => {
+  // Preload assets
+  loadAudios();
+})();
