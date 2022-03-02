@@ -68,8 +68,10 @@ const playAudio = (type) => {
 const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
+  removeArrows.style.visibility = 'visible';
   document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
+const removeArrows = document.querySelector('.arrow-container');
 //GAME OVER
 const gameOver = () => {
   document.querySelector('.play-again').src =
@@ -83,6 +85,7 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
+  clearTimeout(resetTimeOut);
 };
 
 const generatePowerUp = () => {
@@ -121,6 +124,7 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-plus');
   } else {
     switchPlayer();
+    arrowSwitch();
     playAudio('power-up-zero');
   }
 });
@@ -161,7 +165,10 @@ const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
+  removeArrows.style.visibility = 'hidden';
 };
+
+let resetTimeOut;
 
 //function for attack btn; HP - totalAttackPower;
 
@@ -193,7 +200,8 @@ const chickenAttack = () => {
   playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
-    setTimeout(resetImage, 250);
+    clearTimeout(resetTimeOut);
+    resetTimeOut = setTimeout(resetImage, 1000);
   }
   switchPlayer();
   arrowSwitch();
