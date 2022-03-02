@@ -444,17 +444,17 @@ body {
 
 .modal {
   color: black;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'Arcade';
   font-size: 11px;
   text-align: center;
   position: absolute;
-  padding: 30px;
+  padding: 70px 50px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 500px;
   width: min(75vw, 900px);
-  min-height: 650px;
+  min-height: 500px;
   height: min(85vh, 650px);
   background-color: rgb(236, 236, 236);
   z-index: 20;
@@ -483,78 +483,7 @@ body {
   margin-bottom: 20px;
   font-weight: normal;
 }
-
-.game-instructions-intro {
-  font-size: 1rem;
-}
-
-.game-instructions-container {
-  font-size: 1.2rem;
-}
-
-.game-instructions {
-  display: flex;
-  margin: 30px 0;
-}
-
-.game-elements {
-  width: 30%;
-  margin-right: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.game-elements img {
-  margin: 10px;
-}
-
-.game-attack {
-  width: 60%;
-}
-
-.game-power-up {
-  width: 40%;
-}
-
-.game-stamina {
-  width: 30%;
-}
-
-.game-health-bar {
-  width: 90%;
-  height: 50px;
-}
-
-.move-definition {
-  font-size: 1.1rem;
-}
-
-.game-text {
-  width: 70%;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.move-name {
-  font-weight: 600;
-}
-
-.move-text:nth-child(2), .move-text:nth-child(3) {
-  margin-top: 20px;
-}
-
-.move-text:nth-child(4) {
-  margin-top: 20px;
-}
-
-.move-text:nth-child(5) {
-  margin-top: 20px;
-}
-
-.winner-text {
-  width: 100%;
-  text-align: center;
-  font-family: 'Karmatic';
-  font-size: 1.2rem;
+.modal-text {
+  font-family: 'Arcade';
+  font-size: 1.3rem;
 }
