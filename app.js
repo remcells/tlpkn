@@ -189,8 +189,7 @@ const chickenAttack = () => {
   playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
-    clearTimeout(resetTimeOut);
-    resetTimeOut = setTimeout(resetImage, 1000);
+    setTimeout(resetImage, 250);
   }
   switchPlayer();
   arrowSwitch();
