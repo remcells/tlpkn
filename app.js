@@ -68,6 +68,7 @@ const playAudio = (type) => {
 const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
+  removeArrows.style.visibility = 'visible';
 };
 //GAME OVER
 const gameOver = () => {
@@ -147,10 +148,13 @@ const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
 };
 
+const removeArrows = document.querySelector('.arrow-container');
+
 const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
+  removeArrows.style.visibility = 'hidden';
 };
 
 //function for attack btn; HP - totalAttackPower;
