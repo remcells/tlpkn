@@ -68,10 +68,8 @@ const playAudio = (type) => {
 const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
-  removeArrows.style.visibility = 'visible';
   document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
-const removeArrows = document.querySelector('.arrow-container');
 //GAME OVER
 const gameOver = () => {
   document.querySelector('.play-again').src =
@@ -86,14 +84,26 @@ const gameOver = () => {
   }
   gameEnd.classList.toggle('hidden');
   clearTimeout(resetTimeOut);
+  // const againbtn = document.getElementById('play-again').src = 'assets/images/play-again-btn.png';
 };
 
-const generatePowerUp = () => {
-  drawCard.classList.toggle('flipped');
-  if (drawCard.classList.contains('flipped')) {
-    document.getElementById('power-up').style.transform = 'scaleX(-1)';
-}};
-
+//Switch player functionality
+const switchPlayer = () => {
+  attackPower[activePlayer] = 5;
+  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  if (playerHPValue[activePlayer] === 0) {
+    switchPlayer();
+    gameOver();
+    playAudio('win');
+  }
+  if (stamina[activePlayer] < 10) {
+    document.getElementById('power-up-btn').disabled = true;
+  } else {
+    document.getElementById('power-up-btn').disabled = false;
+  }
+  document.getElementById('power-up').style.transform = 'rotateY(180deg)';
+};
 //Power Up random onClick
 drawCard.addEventListener('click', function () {
   document.getElementById('power-up').style.transform = 'rotateY(360deg)';
@@ -104,9 +114,9 @@ drawCard.addEventListener('click', function () {
     stamina[activePlayer];
   // Check Stamina
   if (stamina[activePlayer] < 10) {
-    drawCard.removeEventListener('click', generatePowerUp);
+    document.getElementById('power-up-btn').disabled = true;
   } else {
-    drawCard.addEventListener('click', generatePowerUp);
+    document.getElementById('power-up-btn').disabled = false;
   }
 
   // Generate random power-up
@@ -124,28 +134,10 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-plus');
   } else {
     switchPlayer();
-    arrowSwitch();
     playAudio('power-up-zero');
   }
 });
-
-//Switch player functionality
-const switchPlayer = () => {
-  attackPower[activePlayer] = 5;
-  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
-  activePlayer = activePlayer === 0 ? 1 : 0;
-  if (playerHPValue[activePlayer] === 0) {
-    switchPlayer();
-    gameOver();
-  }
-  if (stamina[activePlayer] < 10) {
-    drawCard.removeEventListener('click', generatePowerUp);
-  } else {
-    drawCard.addEventListener('click', generatePowerUp);
-  }
-};
-//Power Up random onClick
-drawCard.addEventListener('click', generatePowerUp);
+document.getElementById('power-up').style.transform = 'rotateY(180deg)';
 //switching arrows functionaility
 const arrowSwitch = () => {
   if (activePlayer === 1) {
@@ -165,10 +157,7 @@ const attackAnimate = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-attack.png`;
-  removeArrows.style.visibility = 'hidden';
 };
-
-let resetTimeOut;
 
 //function for attack btn; HP - totalAttackPower;
 
@@ -206,7 +195,7 @@ const chickenAttack = () => {
   switchPlayer();
   arrowSwitch();
 };
-
+let resetTimeOut;
 // TITLE SCREEN & MODAL WINDOW
 const titleScreen = document.querySelector('.title-screen');
 const startGame = document.querySelector('.start-game-btn');
