@@ -248,18 +248,23 @@ body {
   cursor: pointer;
   border: none;
   margin-bottom: 1rem;
+  width: 11em;
+  height: 8em;
+  perspective: 800px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #power-up-btn > img {
-  display: block;
-  min-width: 9.5rem;
-  width: min(11rem, 18.4vh);
-  transition: all 0.2s;
+  position: absolute;
+  width: 100%;
+  backface-visibility: visible;
+  filter: drop-shadow(0.3rem 0.3rem 0 rgb(0, 0, 0, 50%));
 }
 
-#power-up-btn > img:hover {
-  transform: translate(-0.4rem, -0.4rem);
-  filter: drop-shadow(0.5rem 0.5rem 0 rgb(0, 0, 0, 90%));
+.flipped {
+  transform: rotateY(180deg);
 }
 
 .bottom-container {
