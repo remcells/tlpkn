@@ -82,9 +82,7 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
-  const againbtn = (document.getElementById(
-    'play-again'
-  ).src = `assets/images/play-again-btn.png`);
+  // const againbtn = document.getElementById('play-again').src = 'assets/images/play-again-btn.png';
 };
 
 //Switch player functionality
@@ -160,7 +158,7 @@ const attackAnimate = () => {
 const playerHpText = document.getElementById(`hp-text-${opposite()}`);
 
 const chickenAttack = () => {
-  document.getElementById('power-up').src = `assets/images/card-back.png`;
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
