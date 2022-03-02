@@ -237,7 +237,7 @@ body {
   display: flex;
   flex-flow: column;
 }
-
+/* POWER UP */
 .power-up-container > p {
   text-align: center;
   font-size: clamp(2rem, 4vh, 2.4rem);
@@ -269,7 +269,7 @@ body {
   bottom: 0;
   text-align: center;
 }
-
+/* HOVERING ARROW */
 .arrow-container {
   display: flex;
   justify-content: space-between;
@@ -320,9 +320,8 @@ body {
 #attack-btn > img {
   min-width: 10rem;
   width: min(11rem, 18vh);
-  transition: all 0.2s;
+  transition: all .5s;
 }
-
 #attack-btn > img:hover {
   filter: drop-shadow(0.5rem 0.5rem 0 rgb(0, 0, 0, 80%));
   transform: translate(-0.4rem, -0.4rem);

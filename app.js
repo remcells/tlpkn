@@ -100,6 +100,7 @@ const switchPlayer = () => {
   } else {
     document.getElementById('power-up-btn').disabled = false;
   }
+  document.getElementById("power-up").style.transform = "rotateY(180deg)";
 };
 //Power Up random onClick
 drawCard.addEventListener('click', function () {
@@ -121,6 +122,7 @@ drawCard.addEventListener('click', function () {
   document.getElementById(
     'power-up'
   ).src = `assets/images/card-${randomNum}.png`;
+      document.getElementById("power-up").style.transform = "rotateY(360deg)";
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
@@ -132,6 +134,7 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-zero');
   }
 });
+document.getElementById("power-up").style.transform = "rotateY(180deg)";
 //switching arrows functionaility
 const arrowSwitch = () => {
   if (activePlayer === 1) {
