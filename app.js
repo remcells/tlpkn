@@ -69,6 +69,7 @@ const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
   removeArrows.style.visibility = 'visible';
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
 const removeArrows = document.querySelector('.arrow-container');
 //GAME OVER
@@ -102,6 +103,7 @@ const switchPlayer = () => {
   } else {
     document.getElementById('power-up-btn').disabled = false;
   }
+  document.getElementById('power-up').style.transform = 'rotateY(180deg)';
 };
 //switching arrows functionaility
 const arrowSwitch = () => {
@@ -115,6 +117,7 @@ const arrowSwitch = () => {
 };
 //Power Up random onClick
 drawCard.addEventListener('click', function () {
+  document.getElementById('power-up').style.transform = 'rotateY(360deg)';
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
@@ -133,6 +136,7 @@ drawCard.addEventListener('click', function () {
   document.getElementById(
     'power-up'
   ).src = `assets/images/card-${randomNum}.png`;
+  document.getElementById('power-up').style.transform = 'rotateY(360deg)';
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
@@ -145,7 +149,17 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-zero');
   }
 });
-
+document.getElementById('power-up').style.transform = 'rotateY(180deg)';
+// //switching arrows functionaility
+// const arrowSwitch = () => {
+//   if (activePlayer === 1) {
+//     indicator0.classList.add('invisible');
+//     indicator1.classList.remove('invisible');
+//   } else {
+//     indicator0.classList.remove('invisible');
+//     indicator1.classList.add('invisible');
+//   }
+// };
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
