@@ -130,6 +130,7 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-plus');
   } else {
     switchPlayer();
+    arrowSwitch();
     playAudio('power-up-zero');
   }
 });
