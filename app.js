@@ -82,6 +82,7 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
+  clearTimeout(resetTimeOut);
 };
 
 //Switch player functionality
@@ -155,6 +156,7 @@ const attackAnimate = () => {
 //function for attack btn; HP - totalAttackPower;
 
 const playerHpText = document.getElementById(`hp-text-${opposite()}`);
+let resetTimeOut;
 
 const chickenAttack = () => {
   document.getElementById('power-up').src = `assets/images/card-back.png`;
@@ -182,7 +184,8 @@ const chickenAttack = () => {
   playerHpText.innerHTML = playerHPValue[opposite()];
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
-    setTimeout(resetImage, 250);
+    clearTimeout(resetTimeOut);
+    resetTimeOut = setTimeout(resetImage, 250);
   }
   switchPlayer();
   arrowSwitch();
