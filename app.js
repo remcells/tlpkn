@@ -86,36 +86,14 @@ const gameOver = () => {
   }
   gameEnd.classList.toggle('hidden');
   clearTimeout(resetTimeOut);
-  // const againbtn = document.getElementById('play-again').src = 'assets/images/play-again-btn.png';
 };
 
-//Switch player functionality
-const switchPlayer = () => {
-  attackPower[activePlayer] = 5;
-  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
-  activePlayer = activePlayer === 0 ? 1 : 0;
-  if (playerHPValue[activePlayer] === 0) {
-    switchPlayer();
-    gameOver();
-    playAudio('win');
-  }
-  if (stamina[activePlayer] < 10) {
-    document.getElementById('power-up-btn').disabled = true;
-  } else {
-    document.getElementById('power-up-btn').disabled = false;
-  }
-  document.getElementById('power-up').style.transform = 'rotateY(180deg)';
-};
-//switching arrows functionaility
-const arrowSwitch = () => {
-  if (activePlayer === 1) {
-    indicator0.classList.add('invisible');
-    indicator1.classList.remove('invisible');
-  } else {
-    indicator0.classList.remove('invisible');
-    indicator1.classList.add('invisible');
-  }
-};
+const generatePowerUp = () => {
+  drawCard.classList.toggle('flipped');
+  if (drawCard.classList.contains('flipped')) {
+    document.getElementById('power-up').style.transform = 'scaleX(-1)';
+}};
+
 //Power Up random onClick
 drawCard.addEventListener('click', function () {
   document.getElementById('power-up').style.transform = 'rotateY(360deg)';
@@ -126,9 +104,9 @@ drawCard.addEventListener('click', function () {
     stamina[activePlayer];
   // Check Stamina
   if (stamina[activePlayer] < 10) {
-    document.getElementById('power-up-btn').disabled = true;
+    drawCard.removeEventListener('click', generatePowerUp);
   } else {
-    document.getElementById('power-up-btn').disabled = false;
+    drawCard.addEventListener('click', generatePowerUp);
   }
 
   // Generate random power-up
@@ -150,17 +128,34 @@ drawCard.addEventListener('click', function () {
     playAudio('power-up-zero');
   }
 });
-document.getElementById('power-up').style.transform = 'rotateY(180deg)';
-// //switching arrows functionaility
-// const arrowSwitch = () => {
-//   if (activePlayer === 1) {
-//     indicator0.classList.add('invisible');
-//     indicator1.classList.remove('invisible');
-//   } else {
-//     indicator0.classList.remove('invisible');
-//     indicator1.classList.add('invisible');
-//   }
-// };
+
+//Switch player functionality
+const switchPlayer = () => {
+  attackPower[activePlayer] = 5;
+  document.getElementById(`player-${activePlayer}-power`).textContent = 5;
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  if (playerHPValue[activePlayer] === 0) {
+    switchPlayer();
+    gameOver();
+  }
+  if (stamina[activePlayer] < 10) {
+    drawCard.removeEventListener('click', generatePowerUp);
+  } else {
+    drawCard.addEventListener('click', generatePowerUp);
+  }
+};
+//Power Up random onClick
+drawCard.addEventListener('click', generatePowerUp);
+//switching arrows functionaility
+const arrowSwitch = () => {
+  if (activePlayer === 1) {
+    indicator0.classList.add('invisible');
+    indicator1.classList.remove('invisible');
+  } else {
+    indicator0.classList.remove('invisible');
+    indicator1.classList.add('invisible');
+  }
+};
 //Opposites the active player: for the damage application to the opponent
 const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
