@@ -61,7 +61,6 @@ const playAudio = (type) => {
   if (!audio) {
     throw new 'No audio type for that!'(); // TODO: Change for better error
   }
-
   audio.audio.play();
 };
 
@@ -69,6 +68,7 @@ const playAudio = (type) => {
 const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
 //GAME OVER
 const gameOver = () => {
@@ -83,19 +83,17 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
-  const againbtn = (document.getElementById(
-    'play-again'
-  ).src = `assets/images/play-again-btn.png`);
 };
 
 const generatePowerUp = () => {
   drawCard.classList.toggle('flipped');
   if (drawCard.classList.contains('flipped')) {
     document.getElementById('power-up').style.transform = 'scaleX(-1)';
-  } else {
-    document.getElementById('power-up').style.transform = 'scaleX(1)';
-  }
+}};
 
+//Power Up random onClick
+drawCard.addEventListener('click', function () {
+  document.getElementById('power-up').style.transform = 'rotateY(360deg)';
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
@@ -114,6 +112,7 @@ const generatePowerUp = () => {
   document.getElementById(
     'power-up'
   ).src = `assets/images/card-${randomNum}.png`;
+  document.getElementById('power-up').style.transform = 'rotateY(360deg)';
   if (randomNum > 0) {
     let totalAttackPower = attackPower[activePlayer] + randomNum;
     attackPower[activePlayer] = totalAttackPower;
@@ -124,7 +123,7 @@ const generatePowerUp = () => {
     switchPlayer();
     playAudio('power-up-zero');
   }
-};
+});
 
 //Switch player functionality
 const switchPlayer = () => {
@@ -169,7 +168,7 @@ const attackAnimate = () => {
 const playerHpText = document.getElementById(`hp-text-${opposite()}`);
 
 const chickenAttack = () => {
-  document.getElementById('power-up').src = `assets/images/card-back.png`;
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
@@ -228,7 +227,6 @@ const newGame = function () {
   playAudio('start');
   playAudio('rooster');
 };
-
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
