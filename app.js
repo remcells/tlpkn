@@ -82,9 +82,6 @@ const gameOver = () => {
     gameEnd.style.flexDirection = 'row-reverse';
   }
   gameEnd.classList.toggle('hidden');
-  const againbtn = (document.getElementById(
-    'play-again'
-  ).src = `assets/images/play-again-btn.png`);
 };
 
 //Switch player functionality
