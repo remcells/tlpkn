@@ -261,6 +261,7 @@ const playAgain = () => {
   indicator0.classList.remove('invisible');
   indicator1.classList.add('invisible');
   activePlayer = 0;
+  gameEnd.style.flexDirection = 'row';
 };
 
 (() => {
