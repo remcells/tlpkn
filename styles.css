@@ -56,7 +56,7 @@ body {
 .top-container {
   display: flex;
   width: clamp(55rem, 95vw, 67.5rem);
-  margin: auto;
+  margin: 0 auto 2.4rem;
   justify-content: space-between;
 }
 
@@ -234,16 +234,29 @@ body {
   font-size: clamp(2.3rem, 4.4vh, 2.6rem);
 }
 
+.power-up-container {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
 .power-up-container > p {
   text-align: center;
-  font-size: clamp(2rem, 4vh, 2.4rem);
+  /* font-size: clamp(2rem, 4vh, 2.4rem); */
+  font-family: 'Karmatic';
+  font-size: 1.3rem;
+}
+
+.text-bounce {
+  animation: bounce 0.5s;
 }
 
 #power-up-btn {
   background: none;
   cursor: pointer;
   border: none;
-  margin-bottom: 1rem;
+  margin-top: 0.4rem;
+  /* margin-bottom: 2.2rem; */
   width: 11em;
   height: 8em;
   perspective: 800px;
