@@ -73,6 +73,7 @@ const resetImage = () => {
 
 //Card Flip Back
 const cardFlipBack = () => {
+  flipAnimation();
   document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
 const gameOverDelay = () => {
@@ -97,16 +98,20 @@ const gameOver = () => {
   clearTimeout(resetTimeOut);
 };
 
-let delayFlipCard;
-const generatePowerUp = () => {
-  clearTimeout(delayFlipCard);
+//CARD FLIP ANIMATION
+const flipAnimation = () => {
   drawCard.classList.toggle('flipped');
   if (drawCard.classList.contains('flipped')) {
     document.getElementById('power-up').style.transform = 'scaleX(-1)';
   } else {
     document.getElementById('power-up').style.transform = 'scaleX(1)';
   }
+};
 
+let delayFlipCard;
+const generatePowerUp = () => {
+  clearTimeout(delayFlipCard);
+  flipAnimation();
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
@@ -214,7 +219,7 @@ const chickenAttack = () => {
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
     clearTimeout(resetTimeOut);
-    resetTimeOut = setTimeout(resetImage, 1000);
+    resetTimeOut = setTimeout(resetImage, 500);
   }
   switchPlayer();
   arrowSwitch();
@@ -276,6 +281,7 @@ const playAgain = () => {
     'assets/images/chicken-playerx-attack.png';
   indicator0.classList.remove('invisible');
   indicator1.classList.add('invisible');
+  removeArrows.style.visibility = 'visible';
   activePlayer = 0;
   gameEnd.style.flexDirection = 'row';
 };
