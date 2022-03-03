@@ -23,6 +23,10 @@ body {
   background-size: 100vw 100vh;
 }
 
+.flex {
+  display: flex;
+}
+
 .game-container {
   position: fixed;
   top: 50%;
@@ -498,14 +502,12 @@ body {
 }
 
 .game-instructions {
-  display: flex;
   margin: 30px 0;
 }
 
 .game-elements {
-  width: 30%;
+  min-width: 30%;
   margin-right: 20px;
-  display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
@@ -515,20 +517,20 @@ body {
 }
 
 .game-attack {
-  width: 60%;
+  width: 130px;
 }
 
 .game-power-up {
-  width: 40%;
+  width: 100px;
 }
 
 .game-stamina {
-  width: 30%;
+  width: 80px;
 }
 
 .game-health-bar {
-  width: 90%;
-  height: 50px;
+  width: 150px;
+  height: 35px;
 }
 
 .move-definition {
@@ -536,7 +538,7 @@ body {
 }
 
 .game-text {
-  width: 70%;
+  min-width: 70%;
   text-align: left;
   margin-top: 10px;
 }
@@ -547,6 +549,10 @@ body {
 
 .move-text:nth-child(2), .move-text:nth-child(3) {
   margin-top: 20px;
+}
+
+.move-text:nth-child(2) {
+  margin-bottom: 20px;
 }
 
 .move-text:nth-child(4) {
