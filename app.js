@@ -73,18 +73,23 @@ const resetImage = () => {
 
 //Card Flip Back
 const cardFlipBack = () => {
-    document.getElementById('power-up').src = 'assets/images/card-back.png';
-    } 
-
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
+};
+const gameOverDelay = () => {
+  document.getElementById(
+    'chickens'
+  ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
+};
 //GAME OVER
+let resetGameOverTimeOut;
 const gameOver = () => {
   document.querySelector('.play-again').src =
     'assets/images/play-again-btn.png';
   attack.setAttribute('onclick', 'playAgain()');
-  document.getElementById(
-    'chickens'
-  ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
   midContainer.classList.add('hidden');
+
+  resetGameOverTimeOut = setTimeout(gameOverDelay, 1500);
+
   if (activePlayer === 1) {
     gameEnd.style.flexDirection = 'row-reverse';
   }
@@ -94,6 +99,7 @@ const gameOver = () => {
 
 let delayFlipCard;
 const generatePowerUp = () => {
+  clearTimeout(delayFlipCard);
   drawCard.classList.toggle('flipped');
   if (drawCard.classList.contains('flipped')) {
     document.getElementById('power-up').style.transform = 'scaleX(-1)';
@@ -126,13 +132,12 @@ const generatePowerUp = () => {
       attackPower[activePlayer];
     playAudio('power-up-plus');
   } else {
-    clearTimeout(delayFlipCard);
     delayFlipCard = setTimeout(cardFlipBack, 3000);
-    // 
+    //
     switchPlayer();
     arrowSwitch();
     playAudio('power-up-zero');
-     }
+  }
 };
 
 //Switch player functionality
@@ -149,7 +154,7 @@ const switchPlayer = () => {
     drawCard.removeEventListener('click', generatePowerUp);
   } else {
     drawCard.addEventListener('click', generatePowerUp);
-  } 
+  }
 };
 //Power Up random onClick
 drawCard.addEventListener('click', generatePowerUp);
@@ -209,7 +214,7 @@ const chickenAttack = () => {
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
     clearTimeout(resetTimeOut);
-    resetTimeOut = setTimeout(resetImage, 500);
+    resetTimeOut = setTimeout(resetImage, 1000);
   }
   switchPlayer();
   arrowSwitch();
@@ -235,6 +240,7 @@ const openAndCloseModal = function () {
 };
 //  NEW GAME
 const newGame = function () {
+  clearTimeout(resetGameOverTimeOut);
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
   midContainer.classList.remove('hidden');
