@@ -70,6 +70,12 @@ const resetImage = () => {
     'assets/images/chicken-playerx-attack.png';
   removeArrows.style.visibility = 'visible';
 };
+
+//Card Flip Back
+const cardFlipBack = () => {
+    document.getElementById('power-up').src = 'assets/images/card-back.png';
+    } 
+
 //GAME OVER
 const gameOver = () => {
   document.querySelector('.play-again').src =
@@ -86,6 +92,7 @@ const gameOver = () => {
   clearTimeout(resetTimeOut);
 };
 
+let delayFlipCard;
 const generatePowerUp = () => {
   drawCard.classList.toggle('flipped');
   if (drawCard.classList.contains('flipped')) {
@@ -119,10 +126,13 @@ const generatePowerUp = () => {
       attackPower[activePlayer];
     playAudio('power-up-plus');
   } else {
+    clearTimeout(delayFlipCard);
+    delayFlipCard = setTimeout(cardFlipBack, 3000);
+    // 
     switchPlayer();
     arrowSwitch();
     playAudio('power-up-zero');
-  }
+     }
 };
 
 //Switch player functionality
@@ -139,7 +149,7 @@ const switchPlayer = () => {
     drawCard.removeEventListener('click', generatePowerUp);
   } else {
     drawCard.addEventListener('click', generatePowerUp);
-  }
+  } 
 };
 //Power Up random onClick
 drawCard.addEventListener('click', generatePowerUp);
@@ -173,7 +183,7 @@ const playerHpText = document.getElementById(`hp-text-${opposite()}`);
 let resetTimeOut;
 
 const chickenAttack = () => {
-  document.getElementById('power-up').src = `assets/images/card-back.png`;
+  cardFlipBack();
   const playerHP = document.getElementById(`hp-bar-${[opposite()]}`);
   const playerHpText = document.getElementById(`hp-text-${opposite()}`);
   playAudio('attack');
@@ -199,7 +209,7 @@ const chickenAttack = () => {
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
     clearTimeout(resetTimeOut);
-    resetTimeOut = setTimeout(resetImage, 250);
+    resetTimeOut = setTimeout(resetImage, 500);
   }
   switchPlayer();
   arrowSwitch();
