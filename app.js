@@ -92,6 +92,7 @@ const gameOver = () => {
   clearTimeout(resetTimeOut);
 };
 
+let delayFlipCard;
 const generatePowerUp = () => {
   drawCard.classList.toggle('flipped');
   if (drawCard.classList.contains('flipped')) {
@@ -125,7 +126,9 @@ const generatePowerUp = () => {
       attackPower[activePlayer];
     playAudio('power-up-plus');
   } else {
-    const delayCardFlipBack = setTimeout(cardFlipBack, 2000);
+    clearTimeout(delayFlipCard);
+    delayFlipCard = setTimeout(cardFlipBack, 3000);
+    // 
     switchPlayer();
     arrowSwitch();
     playAudio('power-up-zero');
@@ -146,7 +149,7 @@ const switchPlayer = () => {
     drawCard.removeEventListener('click', generatePowerUp);
   } else {
     drawCard.addEventListener('click', generatePowerUp);
-  }
+  } 
 };
 //Power Up random onClick
 drawCard.addEventListener('click', generatePowerUp);
@@ -206,7 +209,7 @@ const chickenAttack = () => {
   attackAnimate();
   if (playerHPValue[opposite()] > 0) {
     clearTimeout(resetTimeOut);
-    resetTimeOut = setTimeout(resetImage, 250);
+    resetTimeOut = setTimeout(resetImage, 500);
   }
   switchPlayer();
   arrowSwitch();
