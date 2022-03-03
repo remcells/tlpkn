@@ -108,6 +108,7 @@
           />
         </div>
         <div class="foreground-container flex">
+  <footer class="footer">&copy; 2022 AlDonCeLane Technologies | All Rights Reserved</footer>
           <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
           <button class="hidden" onclick="chickenAttack()" id="attack-btn">
             <img
@@ -143,27 +144,27 @@
         <div class="game-instructions flex">
           <div class="game-elements flex">
             <img
-              class="game-attack"
+              class="game-element"
               src="assets/images/attack-btn.png"
               alt="attack"
             />
             <img
-              class="game-power-up"
+              class="game-element"
               src="assets/images/card-10.png"
               alt="power-up-plus"
             />
             <img
-              class="game-power-up"
+              class="game-element"
               src="assets/images/card-0.png"
-              alt="power-up-zero"
+              alt="lose-turn"
             />
             <img
-              class="game-stamina"
+              class="game-element"
               src="assets/images/stamina.png"
               alt="stamina"
             />
             <img
-              class="game-health-bar"
+              class="game-element"
               src="assets/images/health-bar.png"
               alt="health-bar"
             />
@@ -172,20 +173,26 @@
             <div class="move-text">
               <div class="move-name">attack:</div>
               <div class="move-definition">
-                deducts 10 points from opponent's health
+                deducts current attack points
+              </div>
+              <div class="move-definition">
+               from opponent's health
               </div>
             </div>
             <div class="move-text">
-              <div class="move-name">power up +:</div>
+              <div class="move-name">power up:</div>
               <div class="move-definition">
-                increases attack points (+2, +4, +6, +8, or +10)
+                increases attack points randomly
+              </div>
+               <div class="move-definition">
+                (+2, +4, +6, +8, or +10)
               </div>
               <div class="move-definition">
-                each power up costs 5 stamina points
+                each power up costs 10 stamina points
               </div>
             </div>
             <div class="move-text">
-              <div class="move-name">power up 0:</div>
+              <div class="move-name">lose turn:</div>
               <div class="move-definition">no increase in attack points</div>
               <div class="move-definition">and loses turn to attack</div>
             </div>
