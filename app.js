@@ -73,7 +73,10 @@ const resetImage = () => {
 
 //Card Flip Back
 const cardFlipBack = () => {
-  flipAnimation();
+  const cardSide = document.getElementById('power-up').getAttribute('src');
+  if (cardSide !== 'assets/images/card-back.png') {
+    flipAnimation();
+  }
   document.getElementById('power-up').src = 'assets/images/card-back.png';
 };
 const gameOverDelay = () => {
@@ -137,7 +140,7 @@ const generatePowerUp = () => {
       attackPower[activePlayer];
     playAudio('power-up-plus');
   } else {
-    delayFlipCard = setTimeout(cardFlipBack, 3000);
+    delayFlipCard = setTimeout(cardFlipBack, 2000);
     //
     switchPlayer();
     arrowSwitch();
