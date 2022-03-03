@@ -234,14 +234,6 @@ body {
   font-size: clamp(2.3rem, 4.4vh, 2.6rem);
 }
 
-.mid-container > span .actions-container {
-  text-align: center;
-  margin: auto;
-  width: 300px;
-  display: flex;
-  flex-flow: column;
-}
-
 .power-up-container > p {
   text-align: center;
   font-size: clamp(2rem, 4vh, 2.4rem);
@@ -539,7 +531,7 @@ body {
 
 .game-text {
   min-width: 70%;
-  
+
   text-align: left;
 }
 
