@@ -9,7 +9,7 @@
   </head>
   <body>
     <!-- TITLE SCREEN -->
-    <div class="title-screen">
+    <div class="title-screen flex">
       <img src="assets/images/game-title-1.png" alt="TLPKN" />
       <div class="buttons-container">
         <button class="start-game-btn">
@@ -22,18 +22,18 @@
     </div>
     <!-- MAIN GAME SCREEN -->
     <div class="game-container">
-      <div class="top-container hidden">
+      <div class="top-container hidden flex">
         <!-- PLAYER ONE STATS -->
         <div class="player-0-container">
           <p class="player-number">Player 1</p>
-          <div class="hp-container hp-container-left">
+          <div class="hp-container hp-container-left flex">
             <img class="heart-icon" src="assets/images/heart.png" alt="Heart" />
-            <div class="hp-bar-container hp-bar-container-left">
+            <div class="hp-bar-container hp-bar-container-left flex">
               <span class="hp-text" id="hp-text-0">100</span>
               <div class="hp-bar" id="hp-bar-0"></div>
             </div>
           </div>
-          <div class="stamina-container stamina-container-left">
+          <div class="stamina-container stamina-container-left flex">
             <img src="assets/images/thunder.png" alt="Thunder" />
             <span id="player-0-stamina">50</span>
           </div>
@@ -64,9 +64,9 @@
           <span class="attack-power-text" id="player-0-power">5</span>
         </div>
         <div class="power-up-container">
-          <button onclick="resetImage()" id="power-up-btn">
+          <div id="power-up-btn">
             <img id="power-up" src="assets/images/card-back.png" alt="Card" />
-          </button>
+          </div>
           <p>Power Up!</p>
         </div>
         <div class="mid-right">
@@ -76,7 +76,7 @@
       </div>
       <div class="bottom-container">
         <!-- ARROW INDICATORS: USE "INVISIBLE" CLASS INSTEAD OF "HIDDEN" -->
-        <div class="arrow-container">
+        <div class="arrow-container flex">
           <img
             class="arrow-0 bounce invisible"
             src="assets/images/arrow.png"
@@ -89,7 +89,7 @@
           />
         </div>
         <!-- CHICKEN AVATAR -->
-        <div class="avatars">
+        <div class="avatars flex">
           <img
             class="shrubs"
             src="assets/images/shrubs-left.png"
@@ -107,7 +107,7 @@
             alt="Shrubs"
           />
         </div>
-        <div class="foreground-container">
+        <div class="foreground-container flex">
           <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
           <button class="hidden" onclick="chickenAttack()" id="attack-btn">
             <img
@@ -120,7 +120,7 @@
       </div>
     </div>
     <!-- GAME OVER SCREEN. UNHIDE WHEN GAME ENDS. USE 'FLEX-DIRECTION: ROW-REVERSE' TO FLIP -->
-    <div class="game-over hidden">
+    <div class="game-over hidden flex">
       <div class="winner-side">
         <img class="trophy" src="assets/images/trophy.png" alt="Trophy" />
         <img class="winner-text" src="assets/images/winner.png" alt="Winner" />
@@ -133,7 +133,81 @@
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
       <h1>Fight or Fried</h1>
-      <p class="modal-text"></p>
+      <div class="game-instructions-intro">
+        This is a two-player game on the same device.
+      </div>
+      <div class="game-instructions-intro">
+        Players take turns in making moves.
+      </div>
+      <div class="game-instructions-container">
+        <div class="game-instructions flex">
+          <div class="game-elements flex">
+            <img
+              class="game-attack"
+              src="assets/images/attack-btn.png"
+              alt="attack"
+            />
+            <img
+              class="game-power-up"
+              src="assets/images/card-10.png"
+              alt="power-up-plus"
+            />
+            <img
+              class="game-power-up"
+              src="assets/images/card-0.png"
+              alt="power-up-zero"
+            />
+            <img
+              class="game-stamina"
+              src="assets/images/stamina.png"
+              alt="stamina"
+            />
+            <img
+              class="game-health-bar"
+              src="assets/images/health-bar.png"
+              alt="health-bar"
+            />
+          </div>
+          <div class="game-text">
+            <div class="move-text">
+              <div class="move-name">attack:</div>
+              <div class="move-definition">
+                deducts 10 points from opponent's health
+              </div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">power up +:</div>
+              <div class="move-definition">
+                increases attack points (+2, +4, +6, +8, or +10)
+              </div>
+              <div class="move-definition">
+                each power up costs 5 stamina points
+              </div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">power up 0:</div>
+              <div class="move-definition">no increase in attack points</div>
+              <div class="move-definition">and loses turn to attack</div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">stamina:</div>
+              <div class="move-definition">used to buy power up points</div>
+              <div class="move-definition">
+                regenerates by 10 points after each attack
+              </div>
+            </div>
+            <div class="move-text">
+              <div class="move-name">health:</div>
+              <div class="move-definition">
+                indicates health status / survival rate
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="winner-text-instructions">
+          Last chicken standing wins &#x1F3C6;
+        </div>
+      </div>
     </div>
     <div class="blur hidden"></div>
     <script src="app.js"></script>
