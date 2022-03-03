@@ -281,6 +281,7 @@ const playAgain = () => {
     'assets/images/chicken-playerx-attack.png';
   indicator0.classList.remove('invisible');
   indicator1.classList.add('invisible');
+  removeArrows.style.visibility = 'visible';
   activePlayer = 0;
   gameEnd.style.flexDirection = 'row';
 };
