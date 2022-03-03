@@ -79,7 +79,6 @@ const gameOverDelay = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
-  midContainer.classList.add('hidden');
 };
 //GAME OVER
 let resetGameOverTimeOut;
@@ -87,8 +86,9 @@ const gameOver = () => {
   document.querySelector('.play-again').src =
     'assets/images/play-again-btn.png';
   attack.setAttribute('onclick', 'playAgain()');
+  midContainer.classList.add('hidden');
 
-  resetGameOverTimeOut = setTimeout(gameOverDelay, 500);
+  resetGameOverTimeOut = setTimeout(gameOverDelay, 1500);
 
   if (activePlayer === 1) {
     gameEnd.style.flexDirection = 'row-reverse';
