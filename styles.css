@@ -539,28 +539,20 @@ body {
 
 .game-text {
   min-width: 70%;
+  
   text-align: left;
-  margin-top: 10px;
 }
 
 .move-name {
   font-weight: 600;
 }
 
-.move-text:nth-child(2), .move-text:nth-child(3) {
+.move-text {
   margin-top: 20px;
 }
 
-.move-text:nth-child(2) {
-  margin-bottom: 20px;
-}
-
-.move-text:nth-child(4) {
-  margin-top: 20px;
-}
-
-.move-text:nth-child(5) {
-  margin-top: 20px;
+.move-text:nth-child(1) {
+  margin-top: 10px;
 }
 
 .winner-text-instructions {
