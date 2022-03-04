@@ -735,7 +735,7 @@ body {
     cursor: pointer;
     border: none;
     margin-bottom: 0.5rem;
-    width: 10em;
+    width: 5em;
     height: 3.5em;
     perspective: 300px;
     position: relative;
@@ -744,7 +744,7 @@ body {
   }
   #power-up-btn > img {
     position: absolute;
-    width: 50%;
+    width: 100%;
     backface-visibility: visible;
     filter: drop-shadow(0.3rem 0.3rem 0 rgb(0, 0, 0, 50%));
   }
