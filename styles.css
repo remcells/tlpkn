@@ -59,10 +59,6 @@ body {
   justify-content: space-between;
 }
 
-/* .top-container > div {
-  border: 1px solid red;
-} */
-
 .game-title {
   text-align: center;
   min-width: 20rem;
@@ -163,7 +159,6 @@ body {
 }
 
 .stamina-container > img {
-  /* width: 2.2rem; */
   min-width: 2rem;
   width: min(2.2rem, 3.7vh);
 }
@@ -176,12 +171,6 @@ body {
   margin-left: 0.7rem;
 }
 
-/* .hp-bar > span {
-  color: white;
-  font-family: 'Arcade';
-  font-size: 1.4rem;
-} */
-
 .player-1-container {
   text-align: right;
 }
@@ -191,7 +180,6 @@ body {
   width: clamp(55rem, 95vw, 67.5rem);
   margin: 1rem auto;
   justify-content: space-between;
-  /* border: 1px solid red; */
   color: rgb(5, 4, 44);
   align-items: flex-end;
 }
@@ -233,7 +221,6 @@ body {
   cursor: pointer;
   border: none;
   margin-top: 0.4rem;
-  /* margin-bottom: 2.2rem; */
   width: 11em;
   height: 8em;
   perspective: 800px;
@@ -255,7 +242,6 @@ body {
 
 .bottom-container {
   width: 100%;
-  /* border: 1px solid red; */
   position: absolute;
   bottom: 0;
   text-align: center;
@@ -297,12 +283,10 @@ body {
   display: flex;
   height: min(11rem, 17vh);
   justify-content: center;
-  /* border: 1px solid red; */
 }
 
 .bottom-buttons-container {
   width: clamp(55rem, 95vw, 67.5rem);
-  /* border: 1px solid red; */
   position: relative;
   text-align: center;
 }
@@ -397,7 +381,6 @@ body {
   margin: auto;
   z-index: 5;
   padding: 0 30px;
-  /* flex-direction: row-reverse; */ /* apply if other side wins */
 }
 
 .trophy {
@@ -630,7 +613,7 @@ body {
   font-size: 1.2rem;
 }
 
-/* TAB PART  */
+/*************************TAB PART*************************/
 @media only screen and (max-width: 1024px) and (min-height: 768px) {
   .modal {
     color: black;
@@ -983,4 +966,14 @@ body {
     margin: -3rem auto;
     width: 180px;
   }
+  .shortcut-buttons {
+    position: absolute;
+    bottom: 5em;
+    right: 8em;
+}
+.bottom-buttons-container {
+  width: clamp(55rem, 95vw, 67.5rem);
+  position: relative;
+  text-align: center;
+}
 }
