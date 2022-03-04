@@ -724,8 +724,8 @@ body {
   }
   .game-title {
     text-align: center;
-    min-width: 15rem;
-    width: min(25rem, 10vh);
+    min-width: 18rem;
+    width: min(30rem, 10vh);
   }
   .game-title > img {
     width: 70%;
@@ -734,13 +734,13 @@ body {
     background: none;
     cursor: pointer;
     border: none;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     width: 10em;
     height: 3.5em;
-    perspective: 400px;
+    perspective: 300px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.8s cubic-bezier(0.5, 0.5, 0.5, 1.275);
   }
   #power-up-btn > img {
     position: absolute;
@@ -763,10 +763,10 @@ body {
     overflow: hidden;
   }
   .player-0-container {
-    width: 11rem;
+    width: 10rem;
   }
   .player-1-container {
-    width: 11rem;
+    width: 10rem;
   }
   .heart-icon {
     min-height: 1.7rem;
@@ -808,41 +808,81 @@ body {
   .mid-container {
     display: flex;
     width: clamp(20rem, 100vw, 40em);
-    margin: .5rem auto;
+    margin: auto;
     justify-content: space-between;
     /* border: 1px solid red; */
     color: rgb(5, 4, 44);
     align-items: center;
     margin-left: 140px;
-    padding: 10px;
+    padding: 5px;
     left: 50px;
-}
-.mid-container p {
-  font-family: 'Arcade';
-  font-size: 1.1rem;
-  line-height: .6rem;
-  margin-bottom: 0.3rem;
-}
-.attack-power-text {
-  font-family: 'Karmatic';
-  font-size: clamp(1rem, 4.4vh, 2.6rem);
-}
-#attack-btn > img {
-  min-width: 5rem;
-  width: min(10rem, 50vh);
-  transition: all 0.2s;
-}
-.bottom-container {
-  position: absolute;
-  text-align: center;
-  width: 115%;
-}
-#attack-btn > img {
-  min-width: 5rem;
-  width: min(5rem, 90vh);
-  transition: all 0.2s;
-}
-.arrow-container > img {
-  width: 1.5rem;
-}
+  }
+  .mid-container p {
+    font-family: 'Arcade';
+    font-size: 1.1rem;
+    line-height: 0.6rem;
+    margin-bottom: 0.3rem;
+  }
+  .attack-power-text {
+    font-family: 'Karmatic';
+    font-size: clamp(1rem, 4.4vh, 2.6rem);
+  }
+  .bottom-container {
+    position: absolute;
+    text-align: center;
+    width: 115%;
+  }
+  #attack-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: absolute;
+    bottom: 30px;
+  }
+  #attack-btn > img {
+    min-width: 5rem;
+    width: min(4rem, 30vh);
+    transition: all 0.2s;
+  }
+  .arrow-container > img {
+    width: 1.5rem;
+  }
+  .player-number {
+    font-family: 'Karmatic';
+    font-size: 0.8rem;
+    color: rgb(5, 4, 44);
+    margin-bottom: 0.8rem;
+  }
+  .game-over {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: clamp(10rem, 70vw, 50.5rem);
+    margin: auto;
+    z-index: 5;
+    padding: 0 30px;
+    /* flex-direction: row-reverse; */
+  }
+  .trophy {
+    width: 3rem;
+    display: block;
+    margin: 0 auto 15px;
+  }
+  .winner-text {
+    width: 5rem;
+  }
+  .loser-text {
+    width: 5rem;
+  }
+  .arrow-container {
+    display: flex;
+    justify-content: space-between;
+    margin: -3rem auto;
+    width: 180px;
+  }
 }
