@@ -67,7 +67,7 @@
           <div id="power-up-btn">
             <img id="power-up" src="assets/images/card-back.png" alt="Card" />
           </div>
-          <p>Power Up!</p>
+          <p id="power-up-text">Power Up!</p>
         </div>
         <div class="mid-right">
           <p>Attack<br />Power:</p>
@@ -109,13 +109,28 @@
         </div>
         <div class="foreground-container flex">
           <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
-          <button class="hidden" onclick="chickenAttack()" id="attack-btn">
-            <img
-              class="play-again"
-              src="assets/images/attack-btn.png"
-              alt="Attack Button"
-            />
-          </button>
+          <div class="bottom-buttons-container">
+            <footer>&copy; 2022 AlDonCeLane Technologies | All Rights Reserved</footer>
+            <button class="hidden" onclick="chickenAttack()" id="attack-btn">
+              <img
+                class="play-again"
+                src="assets/images/attack-btn.png"
+                alt="Attack Button"
+              />
+            </button>
+            <div class="shortcut-buttons hidden">
+              <button>
+                <img id="home" src="assets/images/home-btn.png" alt="Home" />
+              </button>
+              <button>
+                <img
+                  id="restart"
+                  src="assets/images/restart-btn.png"
+                  alt="Restart"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -143,27 +158,27 @@
         <div class="game-instructions flex">
           <div class="game-elements flex">
             <img
-              class="game-attack"
+              class="game-element"
               src="assets/images/attack-btn.png"
               alt="attack"
             />
             <img
-              class="game-power-up"
+              class="game-element"
               src="assets/images/card-10.png"
               alt="power-up-plus"
             />
             <img
-              class="game-power-up"
+              class="game-element"
               src="assets/images/card-0.png"
-              alt="power-up-zero"
+              alt="lose-turn"
             />
             <img
-              class="game-stamina"
+              class="game-element"
               src="assets/images/stamina.png"
               alt="stamina"
             />
             <img
-              class="game-health-bar"
+              class="game-element"
               src="assets/images/health-bar.png"
               alt="health-bar"
             />
@@ -172,20 +187,26 @@
             <div class="move-text">
               <div class="move-name">attack:</div>
               <div class="move-definition">
-                deducts 10 points from opponent's health
+                deducts current attack points
+              </div>
+              <div class="move-definition">
+               from opponent's health
               </div>
             </div>
             <div class="move-text">
-              <div class="move-name">power up +:</div>
+              <div class="move-name">power up:</div>
               <div class="move-definition">
-                increases attack points (+2, +4, +6, +8, or +10)
+                increases attack points randomly
+              </div>
+               <div class="move-definition">
+                (+2, +4, +6, +8, or +10)
               </div>
               <div class="move-definition">
                 each power up costs 5 stamina points
               </div>
             </div>
             <div class="move-text">
-              <div class="move-name">power up 0:</div>
+              <div class="move-name">lose turn:</div>
               <div class="move-definition">no increase in attack points</div>
               <div class="move-definition">and loses turn to attack</div>
             </div>
@@ -209,7 +230,20 @@
         </div>
       </div>
     </div>
+    <!-- RETURN TO TITLE SCREEN MODAL WINDOW -->
+    <div class="modal-confirmation return-title-modal hidden">
+      <p class="confirmation-message">Return to title screen?</p>
+      <button class="btn" id="yes-btn-title">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
+    <!-- RESTART GAME MODAL WINDOW -->
+    <div class="modal-confirmation restart-game-modal hidden">
+      <p class="confirmation-message">Restart the Game?</p>
+      <button class="btn" id="yes-btn-restart">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
     <div class="blur hidden"></div>
+    <div class="dark-blur hidden"></div>
     <script src="app.js"></script>
   </body>
 </html>
