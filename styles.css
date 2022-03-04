@@ -365,7 +365,6 @@ body {
 .shortcut-buttons img {
   width: 2rem;
   transition: all 0.2s;
-  opacity: 60%;
 }
 
 .shortcut-buttons > button {
@@ -378,7 +377,6 @@ body {
 .shortcut-buttons img:hover {
   filter: drop-shadow(0.3rem 0.3rem 0 rgb(0, 0, 0, 80%));
   transform: translate(-0.2rem, -0.2rem);
-  opacity: 100%;
 }
 
 .shortcut-buttons img:active {
