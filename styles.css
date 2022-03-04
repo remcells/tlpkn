@@ -807,13 +807,13 @@ body {
   }
   .mid-container {
     display: flex;
-    width: clamp(20rem, 80vw, 40em);
+    width: clamp(20rem, 100vw, 40em);
     margin: .5rem auto;
     justify-content: space-between;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     color: rgb(5, 4, 44);
     align-items: center;
-    margin-left: 500px;
+    margin-left: 140px;
     padding: 10px;
     left: 50px;
 }
