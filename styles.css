@@ -662,7 +662,9 @@ body {
 footer {
 width: 75%;
 text-align: left;
-margin-top: 100px;
+margin-bottom: 15px;
+position: absolute;
+bottom: 0;
 color: #fff;
 font-size: 0.8rem;
 }
