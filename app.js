@@ -2,7 +2,7 @@
 
 // BASE PLAYER STATS
 let playerHPValue = [100, 100];
-const attackPower = [5, 5];
+let attackPower = [5, 5];
 let stamina = [50, 50];
 let activePlayer = 0;
 let staminaRegen = 10;
@@ -150,7 +150,6 @@ const generatePowerUp = () => {
 
   // Generate random power-up
   let randomNum = Math.floor(Math.random() * 6) * 2;
-  document.getElementById('power-up').textContent = randomNum;
   document.getElementById(
     'power-up'
   ).src = `assets/images/card-${randomNum}.png`;
@@ -267,6 +266,7 @@ const topContainer = document.querySelector('.top-container');
 const midContainer = document.querySelector('.mid-container');
 const indicator0 = document.querySelector('.arrow-0');
 const indicator1 = document.querySelector('.arrow-1');
+const shortcutBtns = document.querySelector('.shortcut-buttons');
 
 // MODAL WINDOW OPEN AND CLOSE FUNCTION
 const openAndCloseModal = function () {
@@ -277,15 +277,22 @@ const openAndCloseModal = function () {
 };
 
 // NEW GAME FUNCTION
-const newGame = function () {
+
+const firstGame = () => {
   clearTimeout(resetGameOverTimeOut);
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
   midContainer.classList.remove('hidden');
   indicator0.classList.remove('invisible');
   attack.classList.remove('hidden');
+  shortcutBtns.classList.remove('hidden');
   playAudio('start');
   playAudio('rooster');
+};
+
+const newGame = function () {
+  firstGame();
+  restartGame();
 };
 
 // BUTTON EVENTS
@@ -295,9 +302,9 @@ blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
 
 // PLAY AGAIN FUNCTION
-const playAgain = () => {
-  newGame();
-  gameEnd.classList.toggle('hidden');
+
+const restartGame = () => {
+  gameEnd.classList.add('hidden');
   document.querySelector('.play-again').src = 'assets/images/attack-btn.png';
   attack.setAttribute('onclick', 'chickenAttack()');
   document.getElementById('hp-bar-0').style.width = 100 + '%';
@@ -320,8 +327,74 @@ const playAgain = () => {
   activePlayer = 0;
   gameEnd.style.flexDirection = 'row';
   powerUpText.textContent = 'Power Up!';
+  attackPower = [5, 5];
+  drawCard.removeEventListener('click', staminaLow);
+  drawCard.addEventListener('click', generatePowerUp);
+  powerUpText.classList.remove('text-bounce');
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
+  document.getElementById(`player-0-power`).textContent = '5';
+  document.getElementById(`player-1-power`).textContent = '5';
 };
 
+const playAgain = () => {
+  firstGame();
+  restartGame();
+};
+
+// HOME AND RESTART SHORTCUTS
+const homeBtn = document.getElementById('home');
+const restartBtn = document.getElementById('restart');
+const returnTitleModal = document.querySelector('.return-title-modal');
+const restartGameModal = document.querySelector('.restart-game-modal');
+const darkBlur = document.querySelector('.dark-blur');
+const yesBtnTitle = document.getElementById('yes-btn-title');
+const yesBtnRestart = document.getElementById('yes-btn-restart');
+const noBtn = document.querySelectorAll('.no-btn');
+
+homeBtn.addEventListener('click', function () {
+  returnTitleModal.classList.remove('hidden');
+  darkBlur.classList.remove('hidden');
+});
+
+restartBtn.addEventListener('click', function () {
+  restartGameModal.classList.remove('hidden');
+  darkBlur.classList.remove('hidden');
+});
+
+noBtn.forEach((element) =>
+  element.addEventListener('click', function () {
+    returnTitleModal.classList.add('hidden');
+    restartGameModal.classList.add('hidden');
+    darkBlur.classList.add('hidden');
+  })
+);
+
+yesBtnTitle.addEventListener('click', function () {
+  clearTimeout(resetGameOverTimeOut);
+  titleScreen.classList.remove('hidden');
+  topContainer.classList.add('hidden');
+  midContainer.classList.add('hidden');
+  indicator0.classList.add('invisible');
+  attack.classList.add('hidden');
+  shortcutBtns.classList.add('hidden');
+  returnTitleModal.classList.add('hidden');
+  darkBlur.classList.add('hidden');
+  gameEnd.classList.add('hidden');
+  indicator0.classList.add('invisible');
+  indicator1.classList.add('invisible');
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
+});
+
+yesBtnRestart.addEventListener('click', function () {
+  firstGame();
+  restartGame();
+  returnTitleModal.classList.add('hidden');
+  restartGameModal.classList.add('hidden');
+  darkBlur.classList.add('hidden');
+});
+
+// PRELOAD FUNCTION
 (() => {
   // Preload assets
   loadAudios();

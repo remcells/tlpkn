@@ -109,13 +109,27 @@
         </div>
         <div class="foreground-container flex">
           <!-- ATTACK BUTTON: CHANGE TO "PLAY AGAIN" BTN WHEN GAME ENDS -->
-          <button class="hidden" onclick="chickenAttack()" id="attack-btn">
-            <img
-              class="play-again"
-              src="assets/images/attack-btn.png"
-              alt="Attack Button"
-            />
-          </button>
+          <div class="bottom-buttons-container">
+            <button class="hidden" onclick="chickenAttack()" id="attack-btn">
+              <img
+                class="play-again"
+                src="assets/images/attack-btn.png"
+                alt="Attack Button"
+              />
+            </button>
+            <div class="shortcut-buttons hidden">
+              <button>
+                <img id="home" src="assets/images/home-btn.png" alt="Home" />
+              </button>
+              <button>
+                <img
+                  id="restart"
+                  src="assets/images/restart-btn.png"
+                  alt="Restart"
+                />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -209,7 +223,20 @@
         </div>
       </div>
     </div>
+    <!-- RETURN TO TITLE SCREEN MODAL WINDOW -->
+    <div class="modal-confirmation return-title-modal hidden">
+      <p class="confirmation-message">Return to title screen?</p>
+      <button class="btn" id="yes-btn-title">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
+    <!-- RESTART GAME MODAL WINDOW -->
+    <div class="modal-confirmation restart-game-modal hidden">
+      <p class="confirmation-message">Restart the Game?</p>
+      <button class="btn" id="yes-btn-restart">Yes</button>
+      <button class="btn no-btn">No</button>
+    </div>
     <div class="blur hidden"></div>
+    <div class="dark-blur hidden"></div>
     <script src="app.js"></script>
   </body>
 </html>
