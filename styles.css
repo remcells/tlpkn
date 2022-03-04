@@ -622,7 +622,9 @@ body {
 footer {
   width: 75%;
   text-align: left;
-  margin-top: 100px;
+  margin-bottom: 15px;
+  position: absolute;
+  bottom: 0;
   color: #fff;
   font-size: 0.8rem;
   }
@@ -993,10 +995,13 @@ footer {
 footer {
   width: 75%;
   text-align: left;
-  margin-top: 2rem;
-  margin-left: 6rem;
+  margin-left: 7rem;
+  margin-bottom: 25px;
+  position: absolute;
+  bottom: 0;
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.6rem;
   }
 }
+
 
