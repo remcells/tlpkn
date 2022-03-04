@@ -563,25 +563,33 @@ body {
   align-items: flex-end;
 }
 
-.game-elements img {
-  margin: 10px;
+.game-elements {
+  margin-top: 15px;
 }
 
-.game-attack {
+.game-element:nth-child(1) {
   width: 130px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.game-power-up {
+.game-element:nth-child(2) {
   width: 100px;
+  margin-top: 20px;
 }
 
-.game-stamina {
+.game-element:nth-child(3) {
+ width: 100px;
+ margin-top: 20px;
+}
+.game-element:nth-child(4) {
   width: 80px;
+  margin-top: 20px;
 }
 
-.game-health-bar {
-  width: 150px;
-  height: 35px;
+.game-element:nth-child(5) {
+  width: 200px;
+  margin-top: 25px;
 }
 
 .move-definition {
@@ -590,7 +598,6 @@ body {
 
 .game-text {
   min-width: 70%;
-
   text-align: left;
 }
 
@@ -612,6 +619,13 @@ body {
   font-family: 'Karmatic';
   font-size: 1.2rem;
 }
+footer {
+  width: 75%;
+  text-align: left;
+  margin-top: 100px;
+  color: #fff;
+  font-size: 0.8rem;
+  }
 
 /*************************TAB PART*************************/
 @media only screen and (max-width: 1024px) and (min-height: 768px) {
@@ -976,4 +990,13 @@ body {
   position: relative;
   text-align: center;
 }
+footer {
+  width: 75%;
+  text-align: left;
+  margin-top: 2rem;
+  margin-left: 6rem;
+  color: #fff;
+  font-size: 0.8rem;
+  }
 }
+
