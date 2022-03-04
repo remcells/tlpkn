@@ -529,8 +529,8 @@ body {
 }
 
 .game-element:nth-child(5) {
-  width: 150px;
-  height: 35px;
+  width: 200px;
+  /* height: 35px; */
   margin-top: 25px;
 }
 
