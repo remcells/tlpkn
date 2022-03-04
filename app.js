@@ -134,13 +134,13 @@ const generatePowerUp = () => {
   flipAnimation();
 
   // Deduct Stamina
-  let remainingStamina = stamina[activePlayer] - 10;
+  let remainingStamina = stamina[activePlayer] - 5;
   stamina[activePlayer] = remainingStamina;
   document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
 
   // Check Stamina
-  if (stamina[activePlayer] < 10) {
+  if (stamina[activePlayer] < 5) {
     drawCard.removeEventListener('click', generatePowerUp);
     drawCard.addEventListener('click', staminaLow);
   } else {
@@ -181,7 +181,7 @@ const switchPlayer = () => {
     playAudio('win');
   }
   powerUpText.classList.remove('text-bounce');
-  if (stamina[activePlayer] < 10) {
+  if (stamina[activePlayer] < 5) {
     drawCard.removeEventListener('click', generatePowerUp);
     drawCard.addEventListener('click', staminaLow);
   } else {
