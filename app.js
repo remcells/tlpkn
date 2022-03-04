@@ -1,12 +1,17 @@
+'use strict';
+
+// BASE PLAYER STATS
 let playerHPValue = [100, 100];
-const attackPower = [5, 5];
+let attackPower = [5, 5];
 let stamina = [50, 50];
 let activePlayer = 0;
 let staminaRegen = 10;
 
+// DECLARATIONS
 const drawCard = document.getElementById('power-up-btn');
 const attack = document.getElementById('attack-btn');
 const gameEnd = document.querySelector('.game-over');
+const powerUpText = document.getElementById('power-up-text');
 const audios = [
   {
     type: 'start',
@@ -38,6 +43,7 @@ const audios = [
   },
 ];
 
+// LOADING OF AUDIOS
 const loadAudios = () => {
   audios
     .map((audio) => {
@@ -64,24 +70,31 @@ const playAudio = (type) => {
   audio.audio.play();
 };
 
-//Resets the attacking chicken image back to normal
+// RESETS THE ATTACKING CHICKEN IMAGE BACK TO NORMAL
 const resetImage = () => {
   document.getElementById('chickens').src =
     'assets/images/chicken-playerx-attack.png';
   removeArrows.style.visibility = 'visible';
 };
 
-//Card Flip Back
+// CARD FLIP TO BACK
 const cardFlipBack = () => {
-  flipAnimation();
+  const cardSide = document.getElementById('power-up').getAttribute('src');
+  if (cardSide !== 'assets/images/card-back.png') {
+    flipAnimation();
+  }
   document.getElementById('power-up').src = 'assets/images/card-back.png';
+  powerUpText.textContent = 'Power Up!';
 };
+
+// GAME OVER DELAY FUNCTION
 const gameOverDelay = () => {
   document.getElementById(
     'chickens'
   ).src = `assets/images/chicken-player${activePlayer}-winner.png`;
 };
-//GAME OVER
+
+// GAME OVER CONDITION
 let resetGameOverTimeOut;
 const gameOver = () => {
   document.querySelector('.play-again').src =
@@ -108,25 +121,35 @@ const flipAnimation = () => {
   }
 };
 
+// STAMINA LOW ANIMATION
+const staminaLow = () => {
+  powerUpText.textContent = 'Stamina Low!';
+  powerUpText.classList.add('text-bounce');
+};
+
+// GENERATE RANDOM POWER-UP FUNCTION
 let delayFlipCard;
 const generatePowerUp = () => {
   clearTimeout(delayFlipCard);
   flipAnimation();
+
   // Deduct Stamina
   let remainingStamina = stamina[activePlayer] - 10;
   stamina[activePlayer] = remainingStamina;
   document.getElementById(`player-${activePlayer}-stamina`).textContent =
     stamina[activePlayer];
+
   // Check Stamina
   if (stamina[activePlayer] < 10) {
     drawCard.removeEventListener('click', generatePowerUp);
+    drawCard.addEventListener('click', staminaLow);
   } else {
+    drawCard.removeEventListener('click', staminaLow);
     drawCard.addEventListener('click', generatePowerUp);
   }
 
   // Generate random power-up
   let randomNum = Math.floor(Math.random() * 6) * 2;
-  document.getElementById('power-up').textContent = randomNum;
   document.getElementById(
     'power-up'
   ).src = `assets/images/card-${randomNum}.png`;
@@ -136,8 +159,10 @@ const generatePowerUp = () => {
     document.getElementById(`player-${activePlayer}-power`).textContent =
       attackPower[activePlayer];
     playAudio('power-up-plus');
+    powerUpText.textContent = 'Power Up!';
   } else {
-    delayFlipCard = setTimeout(cardFlipBack, 3000);
+    powerUpText.textContent = 'Lose Turn!';
+    delayFlipCard = setTimeout(cardFlipBack, 2000);
     //
     switchPlayer();
     arrowSwitch();
@@ -145,7 +170,7 @@ const generatePowerUp = () => {
   }
 };
 
-//Switch player functionality
+// SWITCH PLAYER FUNCTION
 const switchPlayer = () => {
   attackPower[activePlayer] = 5;
   document.getElementById(`player-${activePlayer}-power`).textContent = 5;
@@ -155,15 +180,20 @@ const switchPlayer = () => {
     gameOver();
     playAudio('win');
   }
+  powerUpText.classList.remove('text-bounce');
   if (stamina[activePlayer] < 10) {
     drawCard.removeEventListener('click', generatePowerUp);
+    drawCard.addEventListener('click', staminaLow);
   } else {
+    drawCard.removeEventListener('click', staminaLow);
     drawCard.addEventListener('click', generatePowerUp);
   }
 };
-//Power Up random onClick
+
+// POWER UP ONCLICK EVENT
 drawCard.addEventListener('click', generatePowerUp);
-//switching arrows functionaility
+
+// SWITCHING ARROWS FUNCTION
 const arrowSwitch = () => {
   if (activePlayer === 1) {
     indicator0.classList.add('invisible');
@@ -173,7 +203,8 @@ const arrowSwitch = () => {
     indicator1.classList.add('invisible');
   }
 };
-//Opposites the active player: for the damage application to the opponent
+
+// OPPOSITES THE ACTIVE PLAYER: FOR THE DAMAGE APPLICATION TO THE OPPONENT
 const opposite = () => {
   return activePlayer === 0 ? 1 : 0;
 };
@@ -187,8 +218,7 @@ const attackAnimate = () => {
   removeArrows.style.visibility = 'hidden';
 };
 
-//function for attack btn; HP - totalAttackPower;
-
+// FUNCTION FOR ATTACK BTN; HP - totalAttackPower
 const playerHpText = document.getElementById(`hp-text-${opposite()}`);
 let resetTimeOut;
 
@@ -236,33 +266,45 @@ const topContainer = document.querySelector('.top-container');
 const midContainer = document.querySelector('.mid-container');
 const indicator0 = document.querySelector('.arrow-0');
 const indicator1 = document.querySelector('.arrow-1');
+const shortcutBtns = document.querySelector('.shortcut-buttons');
 
+// MODAL WINDOW OPEN AND CLOSE FUNCTION
 const openAndCloseModal = function () {
   modal.classList.toggle('hidden');
   blurModal.classList.toggle('hidden');
   titleScreen.classList.toggle('hidden');
   playAudio('start');
 };
-//  NEW GAME
-const newGame = function () {
+
+// NEW GAME FUNCTION
+
+const firstGame = () => {
   clearTimeout(resetGameOverTimeOut);
   titleScreen.classList.add('hidden');
   topContainer.classList.remove('hidden');
   midContainer.classList.remove('hidden');
   indicator0.classList.remove('invisible');
   attack.classList.remove('hidden');
+  shortcutBtns.classList.remove('hidden');
   playAudio('start');
   playAudio('rooster');
 };
+
+const newGame = function () {
+  firstGame();
+  restartGame();
+};
+
+// BUTTON EVENTS
 btnOpenModal.addEventListener('click', openAndCloseModal);
 btnCloseModal.addEventListener('click', openAndCloseModal);
 blurModal.addEventListener('click', openAndCloseModal);
 startGame.addEventListener('click', newGame);
 
 // PLAY AGAIN FUNCTION
-const playAgain = () => {
-  newGame();
-  gameEnd.classList.toggle('hidden');
+
+const restartGame = () => {
+  gameEnd.classList.add('hidden');
   document.querySelector('.play-again').src = 'assets/images/attack-btn.png';
   attack.setAttribute('onclick', 'chickenAttack()');
   document.getElementById('hp-bar-0').style.width = 100 + '%';
@@ -284,8 +326,75 @@ const playAgain = () => {
   removeArrows.style.visibility = 'visible';
   activePlayer = 0;
   gameEnd.style.flexDirection = 'row';
+  powerUpText.textContent = 'Power Up!';
+  attackPower = [5, 5];
+  drawCard.removeEventListener('click', staminaLow);
+  drawCard.addEventListener('click', generatePowerUp);
+  powerUpText.classList.remove('text-bounce');
+  document.getElementById('power-up').src = 'assets/images/card-back.png';
+  document.getElementById(`player-0-power`).textContent = '5';
+  document.getElementById(`player-1-power`).textContent = '5';
 };
 
+const playAgain = () => {
+  firstGame();
+  restartGame();
+};
+
+// HOME AND RESTART SHORTCUTS
+const homeBtn = document.getElementById('home');
+const restartBtn = document.getElementById('restart');
+const returnTitleModal = document.querySelector('.return-title-modal');
+const restartGameModal = document.querySelector('.restart-game-modal');
+const darkBlur = document.querySelector('.dark-blur');
+const yesBtnTitle = document.getElementById('yes-btn-title');
+const yesBtnRestart = document.getElementById('yes-btn-restart');
+const noBtn = document.querySelectorAll('.no-btn');
+
+homeBtn.addEventListener('click', function () {
+  returnTitleModal.classList.remove('hidden');
+  darkBlur.classList.remove('hidden');
+});
+
+restartBtn.addEventListener('click', function () {
+  restartGameModal.classList.remove('hidden');
+  darkBlur.classList.remove('hidden');
+});
+
+noBtn.forEach((element) =>
+  element.addEventListener('click', function () {
+    returnTitleModal.classList.add('hidden');
+    restartGameModal.classList.add('hidden');
+    darkBlur.classList.add('hidden');
+  })
+);
+
+yesBtnTitle.addEventListener('click', function () {
+  clearTimeout(resetGameOverTimeOut);
+  titleScreen.classList.remove('hidden');
+  topContainer.classList.add('hidden');
+  midContainer.classList.add('hidden');
+  indicator0.classList.add('invisible');
+  attack.classList.add('hidden');
+  shortcutBtns.classList.add('hidden');
+  returnTitleModal.classList.add('hidden');
+  darkBlur.classList.add('hidden');
+  gameEnd.classList.add('hidden');
+  indicator0.classList.add('invisible');
+  indicator1.classList.add('invisible');
+  document.getElementById('chickens').src =
+    'assets/images/chicken-playerx-attack.png';
+});
+
+yesBtnRestart.addEventListener('click', function () {
+  firstGame();
+  restartGame();
+  returnTitleModal.classList.add('hidden');
+  restartGameModal.classList.add('hidden');
+  darkBlur.classList.add('hidden');
+});
+
+// PRELOAD FUNCTION
 (() => {
   // Preload assets
   loadAudios();
