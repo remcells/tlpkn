@@ -325,7 +325,7 @@ body {
 }
 
 .shortcut-buttons img {
-  width: 2rem;
+  width: 2.3rem;
   transition: all 0.2s;
 }
 
@@ -333,7 +333,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 8px;
+  margin-left: 5px;
 }
 
 .shortcut-buttons img:hover {
@@ -579,8 +579,8 @@ body {
 }
 
 .game-element:nth-child(3) {
- width: 100px;
- margin-top: 20px;
+  width: 100px;
+  margin-top: 20px;
 }
 .game-element:nth-child(4) {
   width: 80px;
@@ -622,12 +622,14 @@ body {
 footer {
   width: 75%;
   text-align: left;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   position: absolute;
   bottom: 0;
   color: #fff;
   font-size: 0.8rem;
-  }
+  font-family: 'Arial Narrow';
+  opacity: 50%;
+}
 
 /*************************TAB PART*************************/
 @media only screen and (max-width: 1024px) and (min-height: 768px) {
@@ -986,22 +988,20 @@ footer {
     position: absolute;
     bottom: 5em;
     right: 8em;
-}
-.bottom-buttons-container {
-  width: clamp(55rem, 95vw, 67.5rem);
-  position: relative;
-  text-align: center;
-}
-footer {
-  width: 75%;
-  text-align: left;
-  margin-left: 7rem;
-  margin-bottom: 25px;
-  position: absolute;
-  bottom: 0;
-  color: #fff;
-  font-size: 0.6rem;
+  }
+  .bottom-buttons-container {
+    width: clamp(55rem, 95vw, 67.5rem);
+    position: relative;
+    text-align: center;
+  }
+  footer {
+    width: 75%;
+    text-align: left;
+    margin-left: 7rem;
+    margin-bottom: 25px;
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    font-size: 0.6rem;
   }
 }
-
-
